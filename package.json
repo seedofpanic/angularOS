@@ -1,0 +1,32 @@
+{
+  "name": "angular-os",
+  "version": "0.0.1",
+  "description": "angular os application",
+  "main": "main.js",
+  "scripts": {
+    "devserver": "webpack-dev-server --hot --colors --content-base public --hot --debug --port 8090"
+  },
+  "keywords": [
+    "angular",
+    "js",
+    "os"
+  ],
+  "author": "duke",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^1.14.0",
+    "autoprefixer-loader": "^3.2.0",
+    "babel": "^6.5.2",
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.8",
+    "babel-plugin-transform-react-jsx": "^6.8.0",
+    "babel-preset-latest": "^6.16.0",
+    "css-loader": "^0.26.0",
+    "file-loader": "^0.9.0",
+    "json-loader": "^0.5.4",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
