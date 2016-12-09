@@ -1,11 +1,15 @@
 var webpack = require('webpack');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-    entry: './src/main.js',
+    entry: {
+        bundle: './src/js/main.js',
+        styles: './src/css/style.scss'
+    },
     output: {
         path: __dirname + '/public/build',
         publicPath: "build",
-        filename: "bundle.js"
+        filename: "[name].js"
     },
 
     module: {
@@ -17,23 +21,26 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: "style-loader!css-loader!autoprefixer-loader",
-                exclude: [/node_modules/, /public/]
+                loader: ExtractTextPlugin.extract("style-loader", "css-loader", "autoprefixer-loader")
+            },
+            {
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader", "autoprefixer-loader")
             },
             {
                 test: /\.json$/,
                 loader: "json-loader"
             },
             {
-                test: /\.jpg$/,
-                loader: "url-loader?limit=1000&mimetype=image/jpg"
-            },
-            {
-                test: /\.png$/,
-                loader: "url-loader?limit=1000&mimetype=image/png"
+                test: /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.png|\.jpe?g|\.gif$/,
+                loader: 'file-loader'
             }
         ]
     },
 
-    devtool: "source-map"
+    plugins: [
+        new ExtractTextPlugin("[name].css")
+    ],
+
+    devtool: "eval-source-map"
 }
