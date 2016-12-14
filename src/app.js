@@ -13,7 +13,7 @@ require("./page.css");
         .module('osApp', [
             'ui.router',
             'loginModule',
-            'regModule',
+            'regModule'
         ])
         .config(config);
 })();

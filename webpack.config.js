@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var webpackUglifyJsPlugin = require('webpack-uglify-js-plugin');
 
 module.exports = {
     entry: {
@@ -38,6 +39,15 @@ module.exports = {
             }
         ]
     },
+
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            },
+            minimize: true
+        })
+    ],
 
     watch: true,
     devtool: "eval-source-map"

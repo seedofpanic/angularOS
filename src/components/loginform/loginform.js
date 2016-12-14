@@ -22,7 +22,7 @@ function loginCtrl(serveUser) {
 
     this.sendUserLogin = () => {
         console.log('loged in: ' + this.login + ' + ' + this.password);
-        // serveUser.login(this.login, this.password);
+        serveUser.login(this.login, this.password);
     }
 }
 
