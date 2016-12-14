@@ -1,0 +1,9 @@
+<form class="login" ng-controller="loginCtrl">
+    <label class="login__label">
+        <input type="text" class="login__input" name="login" placeholder="login" ng-model="vm.login">
+    </label>
+    <label class="login__label">
+        <input type="password" class="login__input" name="password" placeholder="password" ng-model="vm.password">
+    </label>
+    <button type="button" name="button" class="login__button" ng-click="sendUserLogin()">LogIn</button>
+</form>
