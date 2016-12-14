@@ -1,28 +1,28 @@
-module.exports = (function() {
-    'use strict';
+function serveUser() {
+    const storage = localStorage;
 
-    angular
-        .module('osApp')
-        .service('serveUser', serveUser);
+    const service = {
+        login: function(login, password) {
+            if (storage.getItem(login) == password) {
+                return true;
+            } else {
+                return false;
+            }
+        },
 
-    function serveUser(login, password) {
-
-        var service = {
-            login: function() {
-                if (localstorage.getItem(login) == password) {
-                    return true;
-                }
-            },
-
-            register: function() {
-                if (localstorage.getItem(login)) {
-                    return "user already exist";
-                } else {
-                    localstorage.setItem(login, password);
-                }
+        register: function(login, password) {
+            if (storage.getItem(login)) {
+                return false;
+            } else {
+                storage.setItem(login, password);
+                return true;
             }
         }
-
-        return service;
     }
-})();
+
+    return service;
+}
+
+module.exports = angular
+        .module('serviceModule', [])
+        .service('serveUser', serveUser);

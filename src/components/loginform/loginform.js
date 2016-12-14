@@ -1,24 +1,33 @@
-(function() {
-    'use strict';
+'use strict';
 
-    require('./loginform.css');
-    angular
-        .module('osApp')
-        .component('login', login());
+require('./loginform.css');
+const loginTemplate = require('./login.html');
+const serviceModule = require('../../services/serviceUser.js');
 
-    function login() {
-        var component = {
-            templateUrl: './login.html',
-            controller: Controller,
-        };
+function login() {
+    const component = {
+        bindings: {
+            login: '<',
+            password: '<'
+        },
+        template: loginTemplate,
+        controller: loginCtrl,
+        controllerAs: 'loginCtrl'
+    };
 
-        return component;
+    return component;
+}
+
+function loginCtrl(serveUser) {
+
+    this.sendUserLogin = () => {
+        console.log('loged in: ' + this.login + ' + ' + this.password);
+        // serveUser.login(this.login, this.password);
     }
+}
 
-    Controller.$inject = ['serveUser'];
-
-    function Controller(serveUser) {
-
-        serveUser.login(vm.login, vm.password);
-    }
-})();
+module.exports = angular
+    .module('loginModule', [
+        'serviceModule'
+    ])
+    .component('loginForm', login());

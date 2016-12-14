@@ -1,6 +1,8 @@
 var angular = require("angular");
-require('angular-ui-router');
 import config from "./app.config.js";
+require('angular-ui-router');
+const loginModule = require('./components/loginform/loginform.js');
+const regModule = require('./components/regform/regform.js');
 
 require("./page.css");
 
@@ -9,10 +11,9 @@ require("./page.css");
 
     angular
         .module('osApp', [
-            'ui.router'
+            'ui.router',
+            'loginModule',
+            'regModule',
         ])
         .config(config);
 })();
-
-require('./components/loginform/loginformCtrl.js');
-require('./components/regform/regformCtrl.js');

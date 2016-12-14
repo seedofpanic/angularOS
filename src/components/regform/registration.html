@@ -1,13 +1,13 @@
 <form class="registration">
     <label class="registration__label">
-        <input type="text" class="registration__input" name="registration" placeholder="login" ng-model="vm.login">
+        <input type="text" class="registration__input" name="registration" placeholder="login" ng-model="regCtrl.login" required>
     </label>
     <label class="registration__label">
-        <input type="password" class="registration__input" name="password" placeholder="password" ng-model="vm.firstPassword">
+        <input type="password" class="registration__input" name="password" placeholder="first password" ng-model="regCtrl.firstPassword" required>
     </label>
     <label class="registration__label">
-        <input type="password" class="registration__input" name="password" placeholder="password" ng-model="vm.secondPassword">
+        <input type="password" class="registration__input" name="password" placeholder="second password" ng-model="regCtrl.secondPassword" required>
     </label>
     <!-- add some meta data -->
-    <button type="button" name="button" class="registration__button" ng-click="sendUserregistration()">registration</button>
+    <button type="button" name="button" class="registration__button" ng-click="regCtrl.sendUserRegistration()">registration</button>
 </form>

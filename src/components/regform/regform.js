@@ -1,24 +1,38 @@
-(function() {
-    'use strict';
+'use strict';
 
-    require('./regform.css');
-    angular
-        .module('osApp')
-        .component('registration', registration());
+require('./regform.css');
+const regTemplate = require('./registration.html');
+const serviceModule = require('../../services/serviceUser.js');
 
-    function registration() {
-        var component = {
-            templateUrl: './registration.html',
-            controller: Controller,
-        };
+function registration() {
+    const component = {
+        bindings: {
+            login: '<',
+            firstPassword: '<',
+            secondPassword: '<'
+        },
+        template: regTemplate,
+        controller: registrationCtrl,
+        controllerAs: 'regCtrl'
+    };
 
-        return component;
+    return component;
+}
+
+function registrationCtrl(serveUser) {
+
+    this.sendUserRegistration = () => {
+        if (this.firstPassword == this.secondPassword) {
+            console.log('registered: ' + this.login + ' 1: ' + this.firstPassword + " 2: " + this.secondPassword);
+            serveUser.register(this.login, this.firstPassword);
+        } else {
+            console.log('Sorry passwords not indent');
+        }
     }
+}
 
-    Controller.$inject = ['serveUser'];
-
-    function Controller(serveUser) {
-
-        serveUser.register(vm.login, vm.firstPassword, vm.secondPassword);
-    }
-})();
+module.exports = angular
+    .module('regModule', [
+        'serviceModule'
+    ])
+    .component('registrationForm', registration());

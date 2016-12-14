@@ -1,15 +1,17 @@
 function config($stateProvider, $urlRouterProvider) {
-    let loginState = {
+    const loginState = {
       name: 'login',
       url: '/login',
       abstract: false,
-      templateUrl: './components/loginform/login.html'
+    //   component: 'loginForm'
+      template: '<login-form></login-form>'
     }
 
-    let registrationState = {
+    const registrationState = {
       name: 'registration',
       url: '/registration',
-      templateUrl: './components/regform/registration.html'
+    //   component: 'registrationForm'
+      template: '<registration-form></registration-form>'
     }
 
     $stateProvider.state(loginState);
