@@ -1,6 +1,6 @@
 'use strict';
 
-require('./loginform.css');
+require('./loginform.scss');
 const loginTemplate = require('./login.html');
 const serviceModule = require('../../services/serviceUser.js');
 

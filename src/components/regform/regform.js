@@ -1,6 +1,6 @@
 'use strict';
 
-require('./regform.css');
+require('./regform.scss');
 const regTemplate = require('./registration.html');
 const serviceModule = require('../../services/serviceUser.js');
 

@@ -9,10 +9,10 @@
 .login__label {
     display: block;
     margin-bottom: 1rem;
-}
 
-.login__label:last-of-type {
-    margin-bottom: 0;
+    &:last-of-type {
+        margin-bottom: 0;
+    }
 }
 
 .login__input {
@@ -32,14 +32,6 @@
     color: #f00;
     font-weight: 700;
 }
-
-/*input.ng-invalid {
-    background-color: pink;
-}
-
-input.ng-valid {
-    background-color: lightgreen;
-}*/
 
 .warning-alert {
     color: #f00;
