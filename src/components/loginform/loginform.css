@@ -32,3 +32,16 @@
     color: #f00;
     font-weight: 700;
 }
+
+/*input.ng-invalid {
+    background-color: pink;
+}
+
+input.ng-valid {
+    background-color: lightgreen;
+}*/
+
+.warning-alert {
+    color: #f00;
+    font-weight: bold;
+}

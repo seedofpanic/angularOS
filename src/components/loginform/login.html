@@ -1,9 +1,11 @@
-<form class="login">
+<form class="login" name="loginForm">
     <label class="login__label">
         <input type="text" class="login__input" name="login" placeholder="login" ng-model="loginCtrl.login" required>
+        <span class="warning-alert" ng-show="loginForm.login.$invalid && loginForm.login.$touched">invalid login</span>
     </label>
     <label class="login__label">
         <input type="password" class="login__input" name="password" placeholder="password" ng-model="loginCtrl.password" required>
+        <span class="warning-alert" ng-show="loginForm.password.$invalid && loginForm.password.$touched">invalid login</span>
     </label>
-    <button type="button" name="button" class="login__button" ng-click="loginCtrl.sendUserLogin()">LogIn</button>
+    <button type="submit" name="button" class="login__button" ng-disabled="loginForm.$invalid" ng-click="loginCtrl.sendUserLogin()">LogIn</button>
 </form>

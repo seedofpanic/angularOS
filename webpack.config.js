@@ -45,7 +45,10 @@ module.exports = {
             compress: {
                 warnings: false
             },
-            minimize: true
+            minimize: true,
+            output: {
+                comments: false
+            }
         })
     ],
 

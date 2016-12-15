@@ -1,13 +1,17 @@
-<form class="registration">
+<form name="registrationForm" class="registration-form">
     <label class="registration__label">
-        <input type="text" class="registration__input" name="registration" placeholder="login" ng-model="regCtrl.login" required>
+        <input type="text" class="registration__input" name="login" placeholder="login" ng-model="regCtrl.login" required>
+        <span class="warning-alert" ng-show="registrationForm.login.$invalid && registrationForm.login.$touched">invalid login</span>
     </label>
     <label class="registration__label">
-        <input type="password" class="registration__input" name="password" placeholder="first password" ng-model="regCtrl.firstPassword" required>
+        <input type="password" class="registration__input" name="firstPassword" placeholder="first password" ng-model="regCtrl.firstPassword" required>
+        <span class="warning-alert" ng-show="registrationForm.firstPassword.$invalid && registrationForm.firstPassword.$touched">invalid password</span>
     </label>
     <label class="registration__label">
-        <input type="password" class="registration__input" name="password" placeholder="second password" ng-model="regCtrl.secondPassword" required>
+        <input type="password" class="registration__input" name="secondPassword" placeholder="second password" ng-model="regCtrl.secondPassword" required>
+        <span class="warning-alert" ng-show="registrationForm.secondPassword.$invalid && registrationForm.secondPassword.$touched">invalid password</span>
     </label>
+    <span ng-show="regCtrl.firstPassword==regCtrl.secondPassword" class="warning-alert"></span>
     <!-- add some meta data -->
-    <button type="button" name="button" class="registration__button" ng-click="regCtrl.sendUserRegistration()">registration</button>
+    <button type="submit" name="button" class="registration__button" ng-disabled="registrationForm.$invalid" ng-click="regCtrl.sendUserRegistration()">registration</button>
 </form>
