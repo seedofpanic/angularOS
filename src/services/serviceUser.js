@@ -1,23 +1,26 @@
 function serveUser() {
-    const storage = localStorage;
 
     const service = {
 
         // user not found, done
         login: function(login, password) {
-            if (storage.getItem(login) == password) {
+            if (localStorage.getItem(login) == password) {
+                alert('you logged in');
                 return true;
             } else {
+                alert('login failed');
                 return false;
             }
         },
 
         // allready exist, registered
         register: function(login, password) {
-            if (storage.getItem(login)) {
+            if (localStorage.getItem(login)) {
+                alert('user allready registered');
                 return false;
             } else {
-                storage.setItem(login, password);
+                localStorage.setItem(login, password);
+                alert('you successfuly registered');
                 return true;
             }
         }
