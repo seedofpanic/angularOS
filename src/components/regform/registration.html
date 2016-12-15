@@ -4,12 +4,13 @@
         <span class="warning-alert" ng-show="registrationForm.login.$invalid && registrationForm.login.$touched">invalid login</span>
     </label>
     <label class="registration__label">
-        <input type="password" class="registration__input" name="firstPassword" placeholder="first password" ng-model="regCtrl.firstPassword" required>
+        <input type="password" class="registration__input" name="firstPassword" placeholder="first password" ng-model="regCtrl.firstPassword" ng-minlength="8" required>
         <span class="warning-alert" ng-show="registrationForm.firstPassword.$invalid && registrationForm.firstPassword.$touched">invalid password</span>
     </label>
     <label class="registration__label">
-        <input type="password" class="registration__input" name="secondPassword" placeholder="second password" ng-model="regCtrl.secondPassword" required>
-        <span class="warning-alert" ng-show="registrationForm.secondPassword.$invalid && registrationForm.secondPassword.$touched">invalid password</span>
+        <input type="password" class="registration__input" name="secondPassword" placeholder="confirm password" ng-model="regCtrl.secondPassword" ng-minlength="6" compare-pass="regCtrl.firstPassword" required>
+        <span class="warning-alert" ng-show="registrationForm.secondPassword.$minLength && registrationForm.secondPassword.$touched">* invalid password</span>
+        <span class="warning-alert" ng-show="registrationForm.secondPassword.$compareTo && registrationForm.secondPassword.$touched">* Must match the previous entry</span>
     </label>
     <span ng-show="regCtrl.firstPassword==regCtrl.secondPassword" class="warning-alert"></span>
     <!-- add some meta data -->

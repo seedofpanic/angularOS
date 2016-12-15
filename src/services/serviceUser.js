@@ -2,6 +2,8 @@ function serveUser() {
     const storage = localStorage;
 
     const service = {
+
+        // user not found, done
         login: function(login, password) {
             if (storage.getItem(login) == password) {
                 return true;
@@ -10,6 +12,7 @@ function serveUser() {
             }
         },
 
+        // allready exist, registered
         register: function(login, password) {
             if (storage.getItem(login)) {
                 return false;

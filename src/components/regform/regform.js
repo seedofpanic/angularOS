@@ -3,6 +3,7 @@
 require('./regform.scss');
 const regTemplate = require('./registration.html');
 const serviceModule = require('../../services/serviceUser.js');
+const comparePassModule = require('./compareDirective.js');
 
 function registration() {
     const component = {
@@ -19,11 +20,12 @@ function registration() {
     return component;
 }
 
+registrationCtrl.$inject = ['serveUser'];
+
 function registrationCtrl(serveUser) {
 
     this.sendUserRegistration = () => {
         if (this.firstPassword == this.secondPassword) {
-            console.log('registered: ' + this.login + ' 1: ' + this.firstPassword + " 2: " + this.secondPassword);
             serveUser.register(this.login, this.firstPassword);
         } else {
             console.log('Sorry passwords not indent');
@@ -33,6 +35,7 @@ function registrationCtrl(serveUser) {
 
 module.exports = angular
     .module('regModule', [
-        'serviceModule'
+        'serviceModule',
+        'comparePassModule'
     ])
     .component('registrationForm', registration());
