@@ -3,6 +3,7 @@ import config from "./app.config.js";
 require('angular-ui-router');
 const loginModule = require('./components/loginform/loginform.js');
 const regModule = require('./components/regform/regform.js');
+const frameModule = require('./components/freme/frame.js');
 
 require("./page.css");
 
@@ -13,7 +14,8 @@ require("./page.css");
         .module('osApp', [
             'ui.router',
             'loginModule',
-            'regModule'
+            'regModule',
+            'frameModule'
         ])
         .config(config);
 })();
