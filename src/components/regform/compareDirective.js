@@ -24,9 +24,7 @@ function directive() {
         };
 
         scope.$watch("otherPassValue", function(modelValue, viewValue) {
-            scope.$watch(modelValue, function() {
                 ngModel.$validate();
-            })
         });
     }
 }
