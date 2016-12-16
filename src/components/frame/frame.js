@@ -13,7 +13,7 @@ function component() {
     return component;
 }
 
-Controller.$inject = [''];
+// Controller.$inject = [''];
 
 /* @ngInject */
 function Controller() {

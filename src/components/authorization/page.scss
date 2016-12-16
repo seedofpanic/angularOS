@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    html {
+        font-size: 9px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    html {
+        font-size: 8px;
+    }
+}
+
+body {
+    font-family: Arial, helvetica;
+    font-size: 1.6rem;
+    background-color: #eeeeee;
+}
+
+/*typographics*/
+ul, ol {
+    list-style: none;
+}
+
+p {
+    margin-bottom: 1rem;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+
+    &:hover, &:focus {
+        color: #f00;
+    }
+}
+
+h1, h2, h3 {
+    font-weight: 400;
+}
+
+/*page*/
+.page {
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/*user initial page*/
+.user-init-page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

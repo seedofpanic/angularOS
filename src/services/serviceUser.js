@@ -1,11 +1,25 @@
-function serveUser() {
+function serveUser($state) {
 
     const service = {
+
+        status: {
+            authorized: false,
+        },
+
+        getAuthStatus: function() {
+            return status.authorized;
+        },
+
+        setAuthStatus: function(state) {
+            status.authorized = state;
+        },
 
         // user not found, done
         login: function(login, password) {
             if (localStorage.getItem(login) == password) {
-                alert('you logged in');
+                // alert('you logged in');
+                this.status.authorized = true;
+                $state.transitionTo($state.get('desktop'));
                 return true;
             } else {
                 alert('login failed');

@@ -29,6 +29,6 @@ function loginCtrl(serveUser) {
 
 module.exports = angular
     .module('loginModule', [
-        'serviceModule'
+        serviceModule.name
     ])
     .component('loginForm', login());

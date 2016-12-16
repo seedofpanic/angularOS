@@ -35,7 +35,7 @@ function registrationCtrl(serveUser) {
 
 module.exports = angular
     .module('regModule', [
-        'serviceModule',
-        'comparePassModule'
+        serviceModule.name,
+        comparePassModule.name
     ])
     .component('registrationForm', registration());

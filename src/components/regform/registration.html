@@ -4,7 +4,7 @@
         <span class="warning-alert" ng-show="registrationForm.login.$invalid && registrationForm.login.$touched">invalid login</span>
     </label>
     <label class="registration__label">
-        <input type="password" class="registration__input" name="firstPassword" placeholder="first password" ng-model="regCtrl.firstPassword" ng-minlength="8" required>
+        <input type="password" class="registration__input" name="firstPassword" placeholder="first password" ng-model="regCtrl.firstPassword" ng-model-options="{ allowInvalid: true, debounce: 200 }" ng-minlength="8" required>
         <span class="warning-alert" ng-show="registrationForm.firstPassword.$invalid && registrationForm.firstPassword.$touched">invalid password</span>
     </label>
     <label class="registration__label">
@@ -16,5 +16,3 @@
     <!-- add some meta data -->
     <button type="submit" name="button" class="registration__button" ng-disabled="registrationForm.$invalid" ng-click="regCtrl.sendUserRegistration()">registration</button>
 </form>
-
-ng-model-option={invalid: false}
