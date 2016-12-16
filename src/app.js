@@ -1,9 +1,10 @@
-var angular = require("angular");
+const angular = require("angular");
 import config from "./app.config.js";
 require('angular-ui-router');
 const loginModule = require('./components/loginform/loginform.js');
 const regModule = require('./components/regform/regform.js');
 const frameModule = require('./components/frame/frame.js');
+const authModule = require('./components/authorization/auth.js');
 
 require("./page.css");
 
@@ -15,6 +16,7 @@ require("./page.css");
             'ui.router',
             loginModule.name,
             regModule.name,
+            authModule.name,
             frameModule.name
         ])
         .config(config);

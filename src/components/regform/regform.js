@@ -38,4 +38,4 @@ module.exports = angular
         serviceModule.name,
         comparePassModule.name
     ])
-    .component('registrationForm', registration());
+    .component('regForm', registration());

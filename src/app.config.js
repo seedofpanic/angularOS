@@ -1,23 +1,19 @@
 function config($stateProvider, $urlRouterProvider) {
     const loginState = {
-        name: 'login',
+        name: 'authorization.login',
         url: '/login',
-        abstract: false,
-        // component: loginForm
         template: '<login-form></login-form>'
     }
 
     const registrationState = {
-        name: 'registration',
+        name: 'authorization.registration',
         url: '/registration',
-        // component: registrationForm
-        template: '<registration-form></registration-form>'
+        template: '<reg-form></reg-form>'
     }
 
     const authState = {
         name: 'authorization',
         url: '/authorization',
-        // component: authorization,
         template: '<authorization></authorization>',
         data: {
           'noLogin': true
@@ -33,10 +29,11 @@ function config($stateProvider, $urlRouterProvider) {
         }
     }
 
+    $stateProvider.state(authState);
     $stateProvider.state(loginState);
     $stateProvider.state(registrationState);
     $stateProvider.state(desktop);
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/authorization/registration');
 }
 
 export default config;

@@ -19,11 +19,10 @@ function serveUser($state) {
             if (localStorage.getItem(login) == password) {
                 // alert('you logged in');
                 this.status.authorized = true;
-                $state.transitionTo($state.get('desktop'));
+                $state.go($state.get('desktop'));
                 return true;
             } else {
                 alert('login failed');
-                return false;
             }
         },
 
@@ -33,9 +32,9 @@ function serveUser($state) {
                 alert('user allready registered');
                 return false;
             } else {
-                localStorage.setItem(login, password);
                 alert('you successfuly registered');
-                return true;
+                localStorage.setItem(login, password);
+                $state.go($state.get('authorization.login'));
             }
         }
     }
