@@ -8,6 +8,9 @@ function component() {
     var component = {
         template: frameTemplate,
         controller: Controller,
+        bindings: {
+            userId: '<'
+        }
     };
 
     return component;

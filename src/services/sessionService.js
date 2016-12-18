@@ -1,8 +1,6 @@
-Service.$inject = [''];
-
-/* @ngInject */
 function Service() {
     const service = {
+
         create: function (sessionId, userId, userRole) {
             this.id = sessionId;
             this.userId = userId;

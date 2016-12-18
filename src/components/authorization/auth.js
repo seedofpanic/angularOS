@@ -6,7 +6,7 @@ const authTemplate = require('./auth.html');
 function authorization() {
     const component = {
         bindings: {
-
+            
         },
         template: authTemplate,
         controller: authCtrl,

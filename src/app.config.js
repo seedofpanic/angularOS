@@ -20,20 +20,26 @@ function config($stateProvider, $urlRouterProvider) {
         }
     }
 
-    const desktop = {
+    const desktopState = {
         name: 'desktop',
-        url: '/desktop',
+        url: '/desktop{userId}',
         template: '<os-frame></os-frame>',
-        data: {
-          'noLogin': false
+        // data: {
+        //   'noLogin': false
+        // },
+        resolve: {
+            userId: function() {
+                // return serveUser.getRandomUserId();
+                return "123";
+            }
         }
     }
 
     $stateProvider.state(authState);
     $stateProvider.state(loginState);
     $stateProvider.state(registrationState);
-    $stateProvider.state(desktop);
-    $urlRouterProvider.otherwise('/authorization/registration');
+    $stateProvider.state(desktopState);
+    $urlRouterProvider.otherwise('/authorization/login');
 }
 
 export default config;

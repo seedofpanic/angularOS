@@ -1,39 +1,48 @@
-function serveUser($state) {
+function serveUser($state, $stateParams) {
 
     const service = {
 
-        status: {
-            authorized: false,
+        getUserLogged: function(userLogin) {
+            return sessionStorage.getItem(userLogin);
         },
 
-        getAuthStatus: function() {
-            return status.authorized;
+        setUserLogged: function(userLogin, isLogged) {
+            sessionStorage.setItem(userLogin, isLogged);
         },
 
-        setAuthStatus: function(state) {
-            status.authorized = state;
+        getRandomUserId: function(min, max){
+            return Math.random() * (10000 - 1) + 1;
         },
 
         // user not found, done
-        login: function(login, password) {
-            if (localStorage.getItem(login) == password) {
-                // alert('you logged in');
-                this.status.authorized = true;
-                $state.go($state.get('desktop'));
+        login: function(userLogin, password) {
+            if (localStorage.getItem(userLogin) == password) {
+                $state.go($state.get('desktop'), {userId: '123'});
+                // console.log($state.get('desktop'));
+                // console.log($stateParams);
+                // console.log("logged in: " + $state.get('desktop'));
                 return true;
             } else {
                 alert('login failed');
             }
         },
 
+        logout: function() {
+            if (localStorage.getItem(userLogin) == password) {
+                this.setUserLogged(userLogin, false);
+                // console.log($stateParams, {userId: this.getRandomUserId()});
+                $state.go($state.get('authorization.login'));
+            }
+        },
+
         // allready exist, registered
-        register: function(login, password) {
-            if (localStorage.getItem(login)) {
+        register: function(userLogin, password) {
+            if (localStorage.getItem(userLogin)) {
                 alert('user allready registered');
                 return false;
             } else {
                 alert('you successfuly registered');
-                localStorage.setItem(login, password);
+                localStorage.setItem(userLogin, password);
                 $state.go($state.get('authorization.login'));
             }
         }
