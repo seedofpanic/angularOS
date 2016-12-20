@@ -5,6 +5,7 @@ const loginModule = require('./components/loginform/loginform.js');
 const regModule = require('./components/regform/regform.js');
 const frameModule = require('./components/frame/frame.js');
 const authModule = require('./components/authorization/auth.js');
+const serviceUser = require('./services/serviceUser.js');
 
 require("./page.css");
 
@@ -17,7 +18,8 @@ require("./page.css");
             loginModule.name,
             regModule.name,
             authModule.name,
-            frameModule.name
+            frameModule.name,
+            serviceUser.name
         ])
         .config(config);
 })();

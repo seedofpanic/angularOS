@@ -24,13 +24,14 @@ function config($stateProvider, $urlRouterProvider) {
         name: 'desktop',
         url: '/desktop{userId}',
         template: '<os-frame></os-frame>',
-        // data: {
-        //   'noLogin': false
-        // },
-        resolve: {
-            userId: function() {
-                // return serveUser.getRandomUserId();
-                return "123";
+        data: {
+          'noLogin': false
+        },
+        onEnter: function(serveUser, $stateParams, $state) {
+            console.log($stateParams.userId);
+            console.log(serveUser.checkIfLogged($stateParams.userId));
+            if (!serveUser.checkIfLogged($stateParams.userId)) {
+                $state.go('authorization.login')
             }
         }
     }

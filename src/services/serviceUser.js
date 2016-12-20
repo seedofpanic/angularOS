@@ -2,35 +2,31 @@ function serveUser($state, $stateParams) {
 
     const service = {
 
-        getUserLogged: function(userLogin) {
-            return sessionStorage.getItem(userLogin);
-        },
-
-        setUserLogged: function(userLogin, isLogged) {
-            sessionStorage.setItem(userLogin, isLogged);
-        },
-
-        getRandomUserId: function(min, max){
-            return Math.random() * (10000 - 1) + 1;
+        checkIfLogged: function(userLogin) {
+            if (sessionStorage.getItem(userLogin)) {
+                return true;
+            } else {
+                return false;
+            }
         },
 
         // user not found, done
         login: function(userLogin, password) {
             if (localStorage.getItem(userLogin) == password) {
-                $state.go($state.get('desktop'), {userId: '123'});
                 // console.log($state.get('desktop'));
-                // console.log($stateParams);
-                // console.log("logged in: " + $state.get('desktop'));
+                sessionStorage.setItem(userLogin, true);
+                $state.go($state.get('desktop'), {userId: userLogin});
                 return true;
             } else {
                 alert('login failed');
+                return false;
             }
         },
 
         logout: function() {
             if (localStorage.getItem(userLogin) == password) {
-                this.setUserLogged(userLogin, false);
                 // console.log($stateParams, {userId: this.getRandomUserId()});
+                sessionStorage.setItem(userLogin, true);
                 $state.go($state.get('authorization.login'));
             }
         },
