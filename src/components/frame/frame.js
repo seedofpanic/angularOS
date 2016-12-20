@@ -2,12 +2,14 @@
 
 require('./frame.scss');
 const frameTemplate = require('./frame.html');
+const serviceUser = require('../../services/serviceUser.js');
 
 /* @ngInject */
 function component() {
     var component = {
         template: frameTemplate,
         controller: Controller,
+        controllerAs: 'desktopCtrl',
         bindings: {
             userId: '<'
         }
@@ -16,13 +18,17 @@ function component() {
     return component;
 }
 
-// Controller.$inject = [''];
+Controller.$inject = ['serveUser'];
 
 /* @ngInject */
-function Controller() {
-
+function Controller(serveUser) {
+    this.userLogOut = function() {
+        serveUser.logout();
+    }
 }
 
 module.exports = angular
-    .module('frameModule', [])
+    .module('frameModule', [
+        serviceUser.name
+    ])
     .component('osFrame', component());

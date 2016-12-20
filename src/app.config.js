@@ -22,17 +22,20 @@ function config($stateProvider, $urlRouterProvider) {
 
     const desktopState = {
         name: 'desktop',
-        url: '/desktop{userId}',
+        url: '/desktop/{userId}',
         template: '<os-frame></os-frame>',
         data: {
           'noLogin': false
         },
+
         onEnter: function(serveUser, $stateParams, $state) {
-            console.log($stateParams.userId);
-            console.log(serveUser.checkIfLogged($stateParams.userId));
             if (!serveUser.checkIfLogged($stateParams.userId)) {
                 $state.go('authorization.login')
             }
+        },
+
+        onExit: function($stateParams) {
+            sessionStorage.setItem($stateParams.userId, false);
         }
     }
 

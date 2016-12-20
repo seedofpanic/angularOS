@@ -26,10 +26,100 @@
 .frame__menu {
     width: 8rem;
     height: 5rem;
-    padding: 0.5rem 1rem;
+    // padding: 0.5rem 1rem;
     box-sizing: border-box;
     background-color: rgb(40, 118, 168);
     color: #fff;
-    text-align: center;
     box-shadow: 5px 0 5px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        background-color: rgb(70, 148, 188);
+    }
+}
+
+.frame__menu__label {
+    display: inline-block;
+    height: 2rem;
+    width: 4rem;
+    position: relative;
+    background-color: transparent;
+    border-bottom: .5rem solid;
+    border-top: .5rem solid;
+    border-color: #fd5433;
+    // transition: border-color .6s ease .7s;
+
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+        width: 100%;
+        border-top: .5rem solid;
+        border-color: #fd5433;
+        transition: transform .7s ease 0s;
+    }
+
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        transform: translate(0, -50%);
+        width: 100%;
+        border-top: .5rem solid;
+        border-color: #fd5433;
+        transition: transform .7s ease 0s;
+    }
+}
+
+.menu__checkbox:checked + .frame__menu__label {
+    border-color: transparent;
+
+    &:before {
+        transform: rotate(135deg);
+        border-color: #fff;
+    }
+
+    &:after {
+        transform: rotate(-135deg);
+        border-color: #fff;
+    }
+    z-index: 3;
+}
+
+.frame__menu__list {
+    position: absolute;
+    top: 5rem;
+    left: 0;
+    width: 10rem;
+    background-color: #eeeeee;
+    padding: 1rem 1.5rem;
+}
+
+.frame__menu__item {
+    padding: .5rem 0;
+    border-bottom: 1px solid #808080;
+
+    &:last-of-type {
+        border-bottom: 0;
+    }
+}
+
+.menu__button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-weight: 700;
+
+    &:hover {
+        color: #f00;
+    }
+}
+
+.menu__checkbox {
+    display: none;
 }

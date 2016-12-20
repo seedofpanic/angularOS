@@ -1,9 +1,28 @@
 <div class="os-frame">
     <div class="frame__top-panel">
         <nav class="frame__menu">
-            <label class="frame__menu__label">
-                MENU
-            </label>
+            <input id="frame__menu__id" class="menu__checkbox" type="checkbox" ng-model="desktopCtrl.isMenuOpened">
+            <label for="frame__menu__id" class="frame__menu__label"></label>
+            <ul ng-if="desktopCtrl.isMenuOpened" class="menu__list frame__menu__list">
+                <li class="menu__item frame__menu__item">
+                    <button class="menu__button" ng-click="desktopCtrl.userLogOut()">LogOut</button>
+                </li>
+                <li class="menu__item frame__menu__item">
+                    <a href="#" class="menu__link">2</a>
+                </li>
+                <li class="menu__item frame__menu__item">
+                    <a href="#" class="menu__link">3</a>
+                </li>
+                <li class="menu__item frame__menu__item">
+                    <a href="#" class="menu__link">4</a>
+                </li>
+                <li class="menu__item frame__menu__item">
+                    <a href="#" class="menu__link">5</a>
+                </li>
+                <li class="menu__item frame__menu__item">
+                    <a href="#" class="menu__link">6</a>
+                </li>
+            </ul>
         </nav>
     </div>
 </div>
