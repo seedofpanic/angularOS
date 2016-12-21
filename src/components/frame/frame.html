@@ -8,21 +8,14 @@
                     <button class="menu__button" ng-click="desktopCtrl.userLogOut()">LogOut</button>
                 </li>
                 <li class="menu__item frame__menu__item">
-                    <a href="#" class="menu__link">2</a>
+                    <button class="menu__button" ng-click="desktopCtrl.openApp('Finder')">Finder</button>
                 </li>
                 <li class="menu__item frame__menu__item">
-                    <a href="#" class="menu__link">3</a>
-                </li>
-                <li class="menu__item frame__menu__item">
-                    <a href="#" class="menu__link">4</a>
-                </li>
-                <li class="menu__item frame__menu__item">
-                    <a href="#" class="menu__link">5</a>
-                </li>
-                <li class="menu__item frame__menu__item">
-                    <a href="#" class="menu__link">6</a>
+                    <button class="menu__button" ng-click="desktopCtrl.openApp('Gedit')">Text editor</button>
                 </li>
             </ul>
         </nav>
     </div>
+    <!-- <app-wrapper></app-wrapper> -->
+    <app-wrapper ng-if="desktopCtrl.appIsActive" close-func="desktopCtrl.closeAllApps" app-name="desktopCtrl.appIsActive"></app-wrapper>
 </div>

@@ -1,0 +1,12 @@
+<div class="app-wrapper">
+    <header class="app-wrapper__header">
+        <div class="app-wrapper__controls">
+            <button ng-click="appWrapperCtrl.closeApp()" class="button-close"></button>
+            <button class="button-fullscreen"></button>
+        </div>
+        <h3 class="app-wrapper__title">
+            {{appWrapperCtrl.appName}}
+        </h3>
+    </header>
+    <file-manager ng-if="appWrapperCtrl.appName === 'Finder'"></file-manager>
+</div>

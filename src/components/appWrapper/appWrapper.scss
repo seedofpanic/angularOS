@@ -1,0 +1,54 @@
+.app-wrapper {
+    width: 60rem;
+    height: 60rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: #eeeeee;
+}
+
+.app-wrapper__header {
+    padding: .5rem;
+    display: flex;
+}
+
+.app-wrapper__controls {
+    width: 20%;
+}
+
+.button-close {
+    display: inline-block;
+    height: 1.5rem;
+    width: 1.5rem;
+    border: 0;
+    border-radius: 50%;
+    background-color: #f00;
+    outline: none;
+
+    &:hover {
+        background-color: #f50;
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.button-fullscreen {
+    display: inline-block;
+    height: 1.5rem;
+    border: 0;
+    width: 1.5rem;
+    border-radius: 50%;
+    background-color: rgb(235, 217, 54);
+    outline: none;
+
+    &:hover {
+        background-color: rgb(250, 230, 70);
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.app-wrapper__title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 400;
+    width: 80%;
+}

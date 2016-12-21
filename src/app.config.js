@@ -27,6 +27,11 @@ function config($stateProvider, $urlRouterProvider) {
         data: {
           'noLogin': false
         },
+        resolve: {
+            apps: function(manageAppsService) {
+                return manageAppsService.apps;
+            }
+        },
 
         onEnter: function(serveUser, $stateParams, $state) {
             if (!serveUser.checkIfLogged($stateParams.userId)) {

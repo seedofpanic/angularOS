@@ -1,42 +1,33 @@
 function serveUser($state, $stateParams) {
 
-    const service = {
+    this.checkIfLogged =  function(userLogin) {
+        return !!sessionStorage.getItem(userLogin);
+    }
 
-        checkIfLogged: function(userLogin) {
-            if (sessionStorage.getItem(userLogin)) {
-                return true;
-            } else {
-                return false;
-            }
-        },
-
-        // user not found, done
-        login: function(userLogin, password) {
-            if (localStorage.getItem(userLogin) == password) {
-                sessionStorage.setItem(userLogin, true);
-                $state.go($state.get('desktop'), {userId: userLogin});
-            } else {
-                alert('login failed');
-            }
-        },
-
-        logout: function() {
-                $state.go($state.get('authorization.login'));
-        },
-
-        // allready exist, registered
-        register: function(userLogin, password) {
-            if (localStorage.getItem(userLogin)) {
-                alert('user allready registered');
-            } else {
-                alert('you successfuly registered');
-                localStorage.setItem(userLogin, password);
-                $state.go($state.get('authorization.login'));
-            }
+    // user not found, done
+    this.login = function(userLogin, password) {
+        if (localStorage.getItem(userLogin) === password) {
+            sessionStorage.setItem(userLogin, true);
+            $state.go($state.get('desktop'), {userId: userLogin});
+        } else {
+            alert('login failed');
         }
     }
 
-    return service;
+    this.logout = function() {
+            $state.go($state.get('authorization.login'));
+    }
+
+    // allready exist, registered
+    this.register = function(userLogin, password) {
+        if (localStorage.getItem(userLogin)) {
+            alert('user allready registered');
+        } else {
+            alert('you successfuly registered');
+            localStorage.setItem(userLogin, password);
+            $state.go($state.get('authorization.login'));
+        }
+    }
 }
 
 module.exports = angular

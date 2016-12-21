@@ -5,7 +5,7 @@
 
 .os-frame {
     position: fixed;
-    position: relative;
+    // position: relative;
     box-sizing: border-box;
     height: 100vh;
     width: 100vw;
@@ -98,6 +98,8 @@
     width: 10rem;
     background-color: #eeeeee;
     padding: 1rem 1.5rem;
+    border: 1px solid #000;
+    border-radius: 1rem;
 }
 
 .frame__menu__item {
