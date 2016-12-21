@@ -30,20 +30,19 @@ function Service() {
             }
         }
 
-        this.addFolder = function(currentPath) {
-
+        this.addFolder = function(currentPath, folderName) {
+            currentPath[Object.keys(currentPath).length] = {};
+            return currentPath;
         }
 
-        this.removeFolder = function(folderName) {
-
+        this.removeItem = function(currentPath, itemName) {
+            delete currentPath[itemName];
+            return currentPath;
         }
 
-        this.addFile = function(currentPath) {
-
-        }
-
-        this.removeFile = function(fileName) {
-
+        this.addFile = function(currentPath, fileName) {
+            currentPath[Object.keys(currentPath).length + '.file'] = '';
+            return currentPath;
         }
 
         this.getFs = function() {

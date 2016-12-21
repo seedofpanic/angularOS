@@ -1,22 +1,24 @@
 <div class="file-manager__functionals">
     <button ng-click="fileManagerCtrl.goBack()" type="button" class="file-manager__button go-back">назад</button>
     <button ng-click="fileManagerCtrl.addFolder()" type="button" class="file-manager__button add-folder">добавить папку</button>
-    <button ng-click="fileManagerCtrl.removeFolder()" type="button" class="file-manager__button remove-folder">удалить папку</button>
     <button ng-click="fileManagerCtrl.addFile()" type="button" class="file-manager__button add-file">добавить файл</button>
-    <button ng-click="fileManagerCtrl.removeFile()" type="button" class="file-manager__button remove-file">удалить файл</button>
+    <button ng-click="fileManagerCtrl.removeItem()" type="button" class="file-manager__button remove-file">удалить выбранный</button>
 </div>
 <div class="file-manager__content">
     <div class="tree-view">
+        <h4 class="favourites">
+            favourites
+        </h4>
         <ul class="tree-view__list">
             <li ng-repeat="(key, value) in fileManagerCtrl.fs['/']">
-                <button class="tree-view__button" type="button" ng-click="fileManagerCtrl.showTreeElem(value, key)">{{key}}</button>
+                <button class="tree-view__button" type="button" ng-dblclick="fileManagerCtrl.showTreeElem(value, key)" ng-click="fileManagerCtrl.selectItem(key, value)">{{key}}</button>
             </li>
         </ul>
     </div>
     <div class="folder-view">
         <ul>
             <li class="folder-view__item" ng-if="!fileManagerCtrl.isValueChanged" ng-repeat="(key, value) in fileManagerCtrl.folderValue">
-                <button ng-click="fileManagerCtrl.showFolderElem(value, key)" class="folder-view__button" type="button">{{key}}</button>
+                <button ng-dblclick="fileManagerCtrl.showFolderElem(value, key)" ng-click="fileManagerCtrl.selectItem(key, value)" class="folder-view__button" type="button">{{key}}</button>
             </li>
         </ul>
     </div>
