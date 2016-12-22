@@ -22,13 +22,15 @@ function component() {
     return component;
 }
 
-Controller.$inject = ['manageAppsService'];
+// Controller.$inject = ['manageAppsService'];
 
 /* @ngInject */
-function Controller(manageAppsService) {
-    this.closeApp = function() {
-        this.closeFunc();
-    }
+function Controller() {
+
+}
+
+Controller.prototype.closeApp = function() {
+    this.closeFunc();
 }
 
 module.exports = angular

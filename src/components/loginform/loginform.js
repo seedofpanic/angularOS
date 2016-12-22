@@ -21,9 +21,12 @@ function login() {
 loginCtrl.$inject = ['serveUser'];
 
 function loginCtrl(serveUser) {
+    this.serveUser = serveUser;
+}
 
+loginCtrl.prototype.sendUserLogin = function() {
     this.sendUserLogin = () => {
-        serveUser.login(this.login, this.password);
+        this.serveUser.login(this.login, this.password);
     }
 }
 

@@ -31,7 +31,7 @@ function Service() {
         }
 
         this.addFolder = function(currentPath, folderName) {
-            currentPath[Object.keys(currentPath).length] = {};
+            currentPath['new folder' + Object.keys(currentPath).length] = {};
             return currentPath;
         }
 

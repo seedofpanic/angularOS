@@ -6,32 +6,27 @@ const frameModule = require('../components/frame/frame.js');
 
 /* @ngInject */
 function Service() {
-
-    const service = {
-        openApp: function(appName) {
-            this.closeAllApps();
-            this.apps[appName] = true;
-            return this.apps;
-        },
-
-        closeAllApps: function() {
-            for (var app in this.apps) {
-                app = false;
-            }
-            return this.apps;
-        },
-
-        closeApp: function(appName) {
-            this.apps[appName] = false;
-            return this.apps;
-        },
-
-        apps: {
-            'Finder': false
-        }
+    this.openApp = function(appName) {
+        this.closeAllApps();
+        this.apps[appName] = true;
+        return this.apps;
     }
 
-    return service;
+    this.closeAllApps = function() {
+        for (var app in this.apps) {
+            app = false;
+        }
+        return this.apps;
+    }
+
+    this.closeApp = function(appName) {
+        this.apps[appName] = false;
+        return this.apps;
+    }
+
+    this.apps = {
+        'Finder': false
+    }
 }
 
 module.exports = angular

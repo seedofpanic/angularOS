@@ -23,6 +23,9 @@ Controller.$inject = ['fsService'];
 
 /* @ngInject */
 function Controller(fsService) {
+
+    this.fsService = fsService;
+
     this.fs = fsService.getFs();
 
     this.isValueChanged = false;
@@ -34,52 +37,51 @@ function Controller(fsService) {
         key: '',
         value: ''
     }
+}
 
-    this.selectItem = (key, value) => {
-        this.selectedItem.key = key;
-        this.selectedItem.value = value;
-    }
+Controller.prototype.selectItem = function(key, value) {
+    this.selectedItem.key = key;
+    this.selectedItem.value = value;
+}
 
-    this.clearSelectedItem = () => {
-        this.selectedItem.key = '';
-        this.selectedItem.value = '';
-    }
+Controller.prototype.clearSelectedItem = function() {
+    this.selectedItem.key = '';
+    this.selectedItem.value = '';
+}
 
-    this.showTreeElem = (value, key) => {
-        this.folderValue = value;
-        this.path = [this.path[0], value];
+Controller.prototype.showTreeElem = function(value, key) {
+    this.folderValue = value;
+    this.path = [this.path[0], value];
+    this.clearSelectedItem();
+}
+
+Controller.prototype.showFolderElem = function(value, key) {
+    this.folderValue = value;
+    this.path.push(value);
+    this.clearSelectedItem();
+}
+
+Controller.prototype.goBack = function() {
+    if (this.path.length > 1) {
+        this.path.pop();
+        this.folderValue = this.path[this.path.length-1];
         this.clearSelectedItem();
     }
+}
 
-    this.showFolderElem = (value, key) => {
-        this.folderValue = value;
-        this.path.push(value);
-        this.clearSelectedItem();
-    }
+Controller.prototype.addFolder = function(fsService) {
+    this.folderValue = this.fsService.addFolder(this.folderValue);
+    this.clearSelectedItem();
+}
 
-    this.goBack = () => {
-        if (this.path.length > 1) {
-            this.path.pop();
-            this.folderValue = this.path[this.path.length-1];
-            this.clearSelectedItem();
-        }
-    }
+Controller.prototype.addFile = function(fsService) {
+    this.folderValue = this.fsService.addFile(this.folderValue);
+    this.clearSelectedItem();
+}
 
-    this.addFolder = () => {
-        this.folderValue = fsService.addFolder(this.folderValue);
-        this.clearSelectedItem();
-    }
-
-    this.addFile = () => {
-        this.folderValue = fsService.addFile(this.folderValue);
-        this.clearSelectedItem();
-    }
-
-    this.removeItem = () => {
-        this.folderValue = fsService.removeItem(this.folderValue, this.selectedItem.key)
-        this.clearSelectedItem();
-    }
-
+Controller.prototype.removeItem = function(fsService) {
+    this.folderValue = this.fsService.removeItem(this.folderValue, this.selectedItem.key)
+    this.clearSelectedItem();
 }
 
 module.exports = angular

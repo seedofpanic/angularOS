@@ -30,21 +30,24 @@ Controller.$inject = ['serveUser', 'manageAppsService'];
 function Controller(serveUser, manageAppsService) {
     this.apps = {}
 
+    this.serveUser = serveUser;
+    this.manageAppsService = manageAppsService;
+
     this.appIsActive = false;
-
-    this.userLogOut = () => {
-        serveUser.logout();
-    }
-
-    this.openApp = (appName) => {
-        this.apps = manageAppsService.openApp(appName);
-        this.appIsActive = appName;
-    }
 
     this.closeAllApps = () => {
         this.apps = manageAppsService.closeAllApps();
         this.appIsActive = false;
     }
+}
+
+Controller.prototype.userLogOut = function() {
+    this.serveUser.logout();
+}
+
+Controller.prototype.openApp = function(appName) {
+    this.apps = this.manageAppsService.openApp(appName);
+    this.appIsActive = appName;
 }
 
 module.exports = angular
