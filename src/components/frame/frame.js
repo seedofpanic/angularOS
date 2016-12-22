@@ -34,11 +34,11 @@ function Controller(serveUser, manageAppsService) {
     this.manageAppsService = manageAppsService;
 
     this.appIsActive = false;
+}
 
-    this.closeAllApps = () => {
-        this.apps = manageAppsService.closeAllApps();
-        this.appIsActive = false;
-    }
+Controller.prototype.closeAllApps = function() {
+    this.apps = this.manageAppsService.closeAllApps();
+    this.appIsActive = false;
 }
 
 Controller.prototype.userLogOut = function() {
@@ -48,6 +48,7 @@ Controller.prototype.userLogOut = function() {
 Controller.prototype.openApp = function(appName) {
     this.apps = this.manageAppsService.openApp(appName);
     this.appIsActive = appName;
+    this.isMenuOpened = false;
 }
 
 module.exports = angular

@@ -15,7 +15,7 @@ function component() {
         controllerAs: 'appWrapperCtrl',
         bindings: {
             appName: '<',
-            closeFunc: '<'
+            closeFunc: '&'
         }
     };
 
@@ -29,13 +29,9 @@ function Controller() {
 
 }
 
-Controller.prototype.closeApp = function() {
-    this.closeFunc();
-}
-
 module.exports = angular
     .module('appWrapperModule', [
         fileManagerModule.name,
-        manageAppsModule.name
+        manageAppsModule.name,
     ])
     .component('appWrapper', component());

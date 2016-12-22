@@ -25,7 +25,7 @@ function Service() {
     }
 
     this.apps = {
-        'Finder': false
+        'Finder': false,
     }
 }
 

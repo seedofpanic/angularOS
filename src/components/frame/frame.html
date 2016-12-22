@@ -10,12 +10,11 @@
                 <li class="menu__item frame__menu__item">
                     <button class="menu__button" ng-click="desktopCtrl.openApp('Finder')">Finder</button>
                 </li>
-                <li class="menu__item frame__menu__item">
-                    <button class="menu__button" ng-click="desktopCtrl.openApp('Gedit')">Text editor</button>
-                </li>
+                <!-- <li class="menu__item frame__menu__item">
+                    <button class="menu__button" ng-click="desktopCtrl.openApp('NewApp')">New App</button>
+                </li> -->
             </ul>
         </nav>
     </div>
-    <!-- <app-wrapper></app-wrapper> -->
-    <app-wrapper ng-if="desktopCtrl.appIsActive" close-func="desktopCtrl.closeAllApps" app-name="desktopCtrl.appIsActive"></app-wrapper>
+    <app-wrapper ng-if="desktopCtrl.appIsActive" close-func="desktopCtrl.closeAllApps()" app-name="desktopCtrl.appIsActive"></app-wrapper>
 </div>

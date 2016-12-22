@@ -26,6 +26,7 @@
     "json-loader": "^0.5.4",
     "node-sass": "^3.13.0",
     "sass-loader": "^4.0.2",
+    "script-loader": "^0.7.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.3",
@@ -35,6 +36,8 @@
   "dependencies": {
     "angular": "^1.5.9",
     "angular-ui-router": "^0.3.2",
+    "phaser": "^2.6.2",
+    "pixi.js": "^4.3.0",
     "webpack": "^1.14.0"
   },
   "repository": {
