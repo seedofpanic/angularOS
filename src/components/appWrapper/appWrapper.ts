@@ -1,35 +1,31 @@
-'use strict';
-
 const appWrapperTemplate = require('./appWrapper.html');
+import * as angular from "angular";
 require('./appWrapper.scss');
 
-const fileManagerModule = require('../fileManager/fileManager.js');
+import fileManagerModule from '../fileManager/fileManager';
 
-const manageAppsModule = require('../../services/manageApps.js');
+import manageAppsModule from '../../services/manageApps';
 
 /* @ngInject */
 function component() {
-    var component = {
+    const component = {
         template: appWrapperTemplate,
         controller: Controller,
-        controllerAs: 'appWrapperCtrl',
         bindings: {
             appName: '<',
-            closeFunc: '&'
+            close: '&'
         }
     };
 
     return component;
 }
 
-// Controller.$inject = ['manageAppsService'];
-
 /* @ngInject */
-function Controller() {
+class Controller {
 
 }
 
-module.exports = angular
+export default angular
     .module('appWrapperModule', [
         fileManagerModule.name,
         manageAppsModule.name,

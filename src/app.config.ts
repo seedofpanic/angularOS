@@ -40,7 +40,7 @@ function config($stateProvider, $urlRouterProvider) {
         },
 
         onExit: function($stateParams) {
-            sessionStorage.setItem($stateParams.userId, false);
+            sessionStorage.setItem($stateParams.userId, 'false');
         }
     }
 

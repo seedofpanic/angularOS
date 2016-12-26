@@ -1,4 +1,4 @@
-'use strict';
+import * as angular from "angular";
 
 // Service.$inject = ['dependencies'];
 
@@ -50,6 +50,6 @@ function Service() {
         }
 }
 
-module.exports = angular
+export default angular
     .module('fsModule', [])
     .service('fsService', Service);

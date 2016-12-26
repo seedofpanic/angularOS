@@ -1,3 +1,5 @@
+import * as angular from "angular";
+
 function serveUser($state, $stateParams) {
 
     this.checkIfLogged =  function(userLogin) {
@@ -7,7 +9,7 @@ function serveUser($state, $stateParams) {
     // user not found, done
     this.login = function(userLogin, password) {
         if (localStorage.getItem(userLogin) === password) {
-            sessionStorage.setItem(userLogin, true);
+            sessionStorage.setItem(userLogin, 'true');
             $state.go($state.get('desktop'), {userId: userLogin});
         } else {
             alert('login failed');
@@ -30,6 +32,6 @@ function serveUser($state, $stateParams) {
     }
 }
 
-module.exports = angular
+export default angular
         .module('serviceModule', [])
         .service('serveUser', serveUser);

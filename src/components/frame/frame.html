@@ -1,20 +1,20 @@
 <div class="os-frame">
     <div class="frame__top-panel">
         <nav class="frame__menu">
-            <input id="frame__menu__id" class="menu__checkbox" type="checkbox" ng-model="desktopCtrl.isMenuOpened">
+            <input id="frame__menu__id" class="menu__checkbox" type="checkbox" ng-model="$ctrl.isMenuOpened">
             <label for="frame__menu__id" class="frame__menu__label"></label>
-            <ul ng-if="desktopCtrl.isMenuOpened" class="menu__list frame__menu__list">
+            <ul ng-if="$ctrl.isMenuOpened" class="menu__list frame__menu__list">
                 <li class="menu__item frame__menu__item">
-                    <button class="menu__button" ng-click="desktopCtrl.userLogOut()">LogOut</button>
+                    <button class="menu__button" ng-click="$ctrl.userLogOut()">LogOut</button>
                 </li>
                 <li class="menu__item frame__menu__item">
-                    <button class="menu__button" ng-click="desktopCtrl.openApp('Finder')">Finder</button>
+                    <button class="menu__button" ng-click="$ctrl.openApp('Finder')">Finder</button>
                 </li>
                 <!-- <li class="menu__item frame__menu__item">
-                    <button class="menu__button" ng-click="desktopCtrl.openApp('NewApp')">New App</button>
+                    <button class="menu__button" ng-click="$ctrl.openApp('NewApp')">New App</button>
                 </li> -->
             </ul>
         </nav>
     </div>
-    <app-wrapper ng-if="desktopCtrl.appIsActive" close-func="desktopCtrl.closeAllApps()" app-name="desktopCtrl.appIsActive"></app-wrapper>
+    <app-wrapper ng-if="$ctrl.appIsActive" close="$ctrl.closeAllApps()" app-name="$ctrl.appIsActive"></app-wrapper>
 </div>

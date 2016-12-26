@@ -3,7 +3,7 @@ var webpackUglifyJsPlugin = require('webpack-uglify-js-plugin');
 
 module.exports = {
     entry: {
-        bundle: './src/app.js',
+        bundle: './src/app.ts',
     },
     output: {
         path: __dirname + '/src',
@@ -15,6 +15,11 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: "babel-loader",
+                exclude: [/node_modules/]
+            },
+            {
+                test: /\.tsx?$/,
+                loader: "awesome-typescript-loader",
                 exclude: [/node_modules/]
             },
             {
@@ -51,6 +56,11 @@ module.exports = {
             }
         })
     ],
+
+    resolve: {
+        // Add '.ts' and '.tsx' as resolvable extensions.
+        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+    },
 
     watch: true,
     devtool: "eval-source-map"

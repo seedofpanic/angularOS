@@ -1,5 +1,3 @@
-'use strict';
-
 function directive() {
     const directive = {
         restrict: 'A',
@@ -29,6 +27,6 @@ function directive() {
     }
 }
 
-module.exports = angular
+export default angular
     .module('comparePassModule', [])
     .directive('comparePass', directive);

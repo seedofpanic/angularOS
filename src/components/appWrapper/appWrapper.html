@@ -1,14 +1,14 @@
 <div class="app-wrapper">
     <header class="app-wrapper__header">
         <div class="app-wrapper__controls">
-            <button ng-click="appWrapperCtrl.closeFunc()" class="button-close"></button>
+            <button ng-click="$ctrl.close()" class="button-close"></button>
             <button class="button-fullscreen"></button>
         </div>
         <h3 class="app-wrapper__title">
-            {{appWrapperCtrl.appName}}
+            {{$ctrl.appName}}
         </h3>
     </header>
     <div class="app__content">
-        <file-manager ng-if="appWrapperCtrl.appName === 'Finder'"></file-manager>
+        <file-manager ng-if="$ctrl.appName === 'Finder'"></file-manager>
     </div>
 </div>

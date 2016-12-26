@@ -1,8 +1,8 @@
 <div class="file-manager__functionals">
-    <button ng-click="fileManagerCtrl.goBack()" type="button" class="file-manager__button go-back">назад</button>
-    <button ng-click="fileManagerCtrl.addFolder()" type="button" class="file-manager__button add-folder">добавить папку</button>
-    <button ng-click="fileManagerCtrl.addFile()" type="button" class="file-manager__button add-file">добавить файл</button>
-    <button ng-click="fileManagerCtrl.removeItem()" type="button" class="file-manager__button remove-file">удалить выбранный</button>
+    <button ng-click="$ctrl.goBack()" type="button" class="file-manager__button go-back">назад</button>
+    <button ng-click="$ctrl.addFolder()" type="button" class="file-manager__button add-folder">добавить папку</button>
+    <button ng-click="$ctrl.addFile()" type="button" class="file-manager__button add-file">добавить файл</button>
+    <button ng-click="$ctrl.removeItem()" type="button" class="file-manager__button remove-file">удалить выбранный</button>
 </div>
 <div class="file-manager__content">
     <div class="tree-view">
@@ -10,15 +10,15 @@
             favourites
         </h4>
         <ul class="tree-view__list">
-            <li ng-repeat="(key, value) in fileManagerCtrl.fs['/']">
-                <button class="tree-view__button" type="button" ng-dblclick="fileManagerCtrl.showTreeElem(value, key)" ng-click="fileManagerCtrl.selectItem(key, value)">{{key}}</button>
+            <li ng-repeat="(key, value) in $ctrl.favourites">
+                <button class="tree-view__button" type="button" ng-dblclick="$ctrl.showTreeElem(value, key)" ng-click="$ctrl.selectItem(key, value)">{{key}}</button>
             </li>
         </ul>
     </div>
     <div class="folder-view">
         <ul>
-            <li class="folder-view__item" ng-if="!fileManagerCtrl.isValueChanged" ng-repeat="(key, value) in fileManagerCtrl.folderValue">
-                <button ng-dblclick="fileManagerCtrl.showFolderElem(value, key)" ng-click="fileManagerCtrl.selectItem(key, value)" class="folder-view__button" type="button">{{key}}</button>
+            <li ng-repeat="(key, value) in $ctrl.folderValue" class="folder-view__item" ng-if="!$ctrl.isValueChanged">
+                <button ng-dblclick="$ctrl.showFolderElem(value, key)" ng-click="$ctrl.selectItem(key, value)" class="folder-view__button" type="button">{{key}}</button>
             </li>
         </ul>
     </div>

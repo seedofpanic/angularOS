@@ -1,4 +1,4 @@
-'use strict';
+import * as angular from "angular";
 
 require('./auth.scss');
 const authTemplate = require('./auth.html');
@@ -6,19 +6,19 @@ const authTemplate = require('./auth.html');
 function authorization() {
     const component = {
         bindings: {
-            
+
         },
         template: authTemplate,
-        controller: authCtrl,
-        controllerAs: 'authCtrl'
+        controller: authCtrl
     };
 
     return component;
 }
 
-function authCtrl() {
+class authCtrl {
+
 }
 
-module.exports = angular
+export default angular
     .module('authModule', [])
     .component('authorization', authorization());

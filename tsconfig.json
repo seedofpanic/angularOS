@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "sourceMap": true,
+        "experimentalDecorators": true,
+        "noEmit": true,
+        "allowJs": true
+    },
+    "exclude": [
+        "node_modules",
+        "dist"
+    ],
+    "files": [
+        "src/typings/index.d.ts"
+    ]
+}

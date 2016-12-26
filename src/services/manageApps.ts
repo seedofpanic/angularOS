@@ -1,6 +1,4 @@
-'use strict';
-
-const frameModule = require('../components/frame/frame.js');
+import * as angular from "angular";
 
 // Service.$inject = ['desktopCtrl'];
 
@@ -14,7 +12,7 @@ function Service() {
 
     this.closeAllApps = function() {
         for (var app in this.apps) {
-            app = false;
+            app = 'false';
         }
         return this.apps;
     }
@@ -29,6 +27,6 @@ function Service() {
     }
 }
 
-module.exports = angular
+export default angular
     .module('manageAppsModule', [])
     .service('manageAppsService', Service);

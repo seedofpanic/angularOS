@@ -1,9 +1,9 @@
-'use strict';
+import * as angular from "angular";
 
-require('./regform.scss');
+const regStyles = require('./regform.scss');
 const regTemplate = require('./registration.html');
-const serviceModule = require('../../services/serviceUser.js');
-const comparePassModule = require('./compareDirective.js');
+import serviceModule from '../../services/serviceUser';
+import comparePassModule from './compareDirective';
 
 function registration() {
     const component = {
@@ -20,20 +20,29 @@ function registration() {
     return component;
 }
 
-registrationCtrl.$inject = ['serveUser'];
+class registrationCtrl {
+    static $inject = ['serveUser'];
 
-function registrationCtrl(serveUser) {
+    private firstPassword: string;
+    private secondPassword: string;
+    private login: string;
 
-    this.sendUserRegistration = () => {
+    private serveUser;
+
+    constructor(serveUser) {
+        this.serveUser = serveUser;
+    }
+
+    public sendUserRegistration() {
         if (this.firstPassword == this.secondPassword) {
-            serveUser.register(this.login, this.firstPassword);
+            this.serveUser.register(this.login, this.firstPassword);
         } else {
             console.log('Sorry passwords not indent');
         }
     }
 }
 
-module.exports = angular
+export default angular
     .module('regModule', [
         serviceModule.name,
         comparePassModule.name
