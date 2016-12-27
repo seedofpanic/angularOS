@@ -14,13 +14,12 @@ function serveUser($state, $stateParams, modalService) {
             sessionStorage.setItem(userLogin, 'true');
             $state.go($state.get('desktop'), {userId: userLogin});
         } else {
-            // alert('login failed');
             modalService.show('login failed');
         }
     }
 
     this.logout = function() {
-            $state.go($state.get('authorization.login'));
+        $state.go($state.get('authorization.login'));
     }
 
     // allready exist, registered
