@@ -16,29 +16,42 @@ export class Modal {
 
 /* @ngInject */
 class Service {
-    public modals: Modal[];
 
-    constructor() {
+    static $inject = ['$q'];
+
+    public modals: Modal[];
+    private deferred;
+
+    constructor(public $q) {
         this.modals = [];
     }
 
-    public show(template: string) {
+    public openModal(template: string): void {
+        this.deferred = this.show(template);
+
+        this.deferred.promise.then(function() {
+            console.log('modal frame submited')
+        }).catch(function() {
+            console.log('modal frame closed')
+        })
+    }
+
+    private show(template: string) {
+        var deferred = this.$q.defer();
         const modal = new Modal(template, this);
         this.modals.push(modal);
 
-        // console.log('opened modal: ' + modal.template);
-        // console.log(this.modals)
-        return modal;
+        return deferred;
     }
 
-    public close(modal: Modal) {
-        // console.log('closed modal: ' + modal.template);
-        return this.modals.pop();
+    public close(modal: Modal): void {
+        this.modals.pop();
+        this.deferred.reject();
     }
 
-    public submit(modal: Modal) {
-        // console.log('submited modal: ' + modal.template);
-        return this.modals.pop();
+    public submit(modal: Modal): void {
+        this.modals.pop();
+        this.deferred.resolve();
     }
 }
 

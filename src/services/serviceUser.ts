@@ -14,7 +14,7 @@ function serveUser($state, $stateParams, modalService) {
             sessionStorage.setItem(userLogin, 'true');
             $state.go($state.get('desktop'), {userId: userLogin});
         } else {
-            modalService.show('login failed');
+            modalService.openModal('login failed');
         }
     }
 
@@ -25,9 +25,9 @@ function serveUser($state, $stateParams, modalService) {
     // allready exist, registered
     this.register = function(userLogin, password) {
         if (localStorage.getItem(userLogin)) {
-            modalService.show('user allready registered');
+            modalService.openModal('user allready registered');
         } else {
-            modalService.show('you successfuly registered');
+            modalService.openModal('you successfuly registered');
             localStorage.setItem(userLogin, password);
             $state.go($state.get('authorization.login'));
         }
