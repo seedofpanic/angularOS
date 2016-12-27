@@ -1,0 +1,13 @@
+<header class="modal__header">
+    <div class="modal__control">
+        <button ng-click="$ctrl.onClose()" class="button-close"></button>
+    </div>
+</header>
+<div class="modal__content">
+    {{$ctrl.template}}
+    <!-- <div ng-include="$ctrl.template">
+    </div> -->
+</div>
+<div class="modal__footer">
+    <button ng-click="$ctrl.onSubmit()" class="button-submit" focus-me>OK</button>
+</div>

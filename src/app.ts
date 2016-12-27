@@ -10,6 +10,8 @@ import authModule from './components/authorization/auth';
 import serviceUser from './services/serviceUser';
 import manageAppsModule from './services/manageApps';
 
+import modalsModule from './components/modals/modals';
+
 require("./page.css");
 
 (function() {
@@ -23,7 +25,8 @@ require("./page.css");
             authModule.name,
             frameModule.name,
             serviceUser.name,
-            manageAppsModule.name
+            manageAppsModule.name,
+            modalsModule.name
         ])
         .config(config);
 })();

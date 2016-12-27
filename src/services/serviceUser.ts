@@ -1,6 +1,8 @@
 import * as angular from "angular";
 
-function serveUser($state, $stateParams) {
+import modalsService from '../components/modals/modalsService';
+
+function serveUser($state, $stateParams, modalService) {
 
     this.checkIfLogged =  function(userLogin) {
         return !!sessionStorage.getItem(userLogin);
@@ -12,7 +14,8 @@ function serveUser($state, $stateParams) {
             sessionStorage.setItem(userLogin, 'true');
             $state.go($state.get('desktop'), {userId: userLogin});
         } else {
-            alert('login failed');
+            // alert('login failed');
+            modalService.show('login failed');
         }
     }
 
@@ -23,9 +26,9 @@ function serveUser($state, $stateParams) {
     // allready exist, registered
     this.register = function(userLogin, password) {
         if (localStorage.getItem(userLogin)) {
-            alert('user allready registered');
+            modalService.show('user allready registered');
         } else {
-            alert('you successfuly registered');
+            modalService.show('you successfuly registered');
             localStorage.setItem(userLogin, password);
             $state.go($state.get('authorization.login'));
         }
@@ -33,5 +36,7 @@ function serveUser($state, $stateParams) {
 }
 
 export default angular
-        .module('serviceModule', [])
+        .module('serviceModule', [
+            modalsService.name
+        ])
         .service('serveUser', serveUser);
