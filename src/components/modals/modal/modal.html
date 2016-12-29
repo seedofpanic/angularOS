@@ -3,10 +3,8 @@
         <button ng-click="$ctrl.onClose()" class="button-close"></button>
     </div>
 </header>
-<div class="modal__content">
-    {{$ctrl.template}}
-    <!-- <div ng-include="$ctrl.template">
-    </div> -->
+<div class="modal__content" compile-template-directive template="$ctrl.template">
+    <!-- {{$ctrl.template}} -->
 </div>
 <div class="modal__footer">
     <button ng-click="$ctrl.onSubmit()" class="button-submit" focus-me>OK</button>

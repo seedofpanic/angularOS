@@ -25,7 +25,7 @@ class Controller {
 
     constructor( public modalService) {
         this.modals = modalService.modals;
-        console.log(this.modals + '  modals modals')
+        // console.log(this.modals + '  modals modals')
     }
 }
 

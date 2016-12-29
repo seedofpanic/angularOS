@@ -4,6 +4,7 @@ const modalTemplate = require('./modal.html');
 require('./modal.scss');
 
 import focusModule from './focus';
+import compileTemplateModule from './compileDirective';
 
 function modal() {
     const component = {
@@ -27,6 +28,7 @@ class Controller {
 
 export default angular
     .module('modalModule', [
-        focusModule.name
+        focusModule.name,
+        compileTemplateModule.name
     ])
     .component('modal', modal());

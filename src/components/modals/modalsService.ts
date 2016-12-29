@@ -2,15 +2,33 @@ import * as angular from "angular";
 
 export class Modal {
 
-    constructor(public template: string, private modalsService: Service) {
+    public deferred;
+    private modalsService: Service;
+    public template: string;
+
+    constructor(template: string, modalsService: Service, deferred) {
+        this.deferred = deferred;
+        this.template = template;
+        this.modalsService = modalsService;
     }
 
-    public close() {
-        this.modalsService.close(this);
+    private close(): void {
+        this.deferred.reject();
     }
 
-    public submit() {
-        this.modalsService.submit(this);
+    private submit(): void {
+        this.deferred.resolve();
+    }
+
+    public resolveModal(): void {
+        const self = this;
+        this.deferred.promise.then(function() {
+            self.modalsService.submit(self);
+            self.submit();
+        }).catch(function() {
+            self.modalsService.close(self);
+            self.close();
+        })
     }
 }
 
@@ -27,31 +45,24 @@ class Service {
     }
 
     public openModal(template: string): void {
-        this.deferred = this.show(template);
-
-        this.deferred.promise.then(function() {
-            console.log('modal frame submited')
-        }).catch(function() {
-            console.log('modal frame closed')
-        })
+        this.show(template);
     }
 
-    private show(template: string) {
+    private show(template: string): void {
         var deferred = this.$q.defer();
-        const modal = new Modal(template, this);
+        const modal = new Modal(template, this, deferred);
         this.modals.push(modal);
-
-        return deferred;
+        modal.resolveModal();
     }
 
     public close(modal: Modal): void {
-        this.modals.pop();
-        this.deferred.reject();
+        this.modals.splice(this.modals.indexOf(modal), 1);
+        console.log('modal' + ' closed');
     }
 
     public submit(modal: Modal): void {
-        this.modals.pop();
-        this.deferred.resolve();
+        this.modals.splice(this.modals.indexOf(modal), 1);
+        console.log('modal' + ' submited');
     }
 }
 
