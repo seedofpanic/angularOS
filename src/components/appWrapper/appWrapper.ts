@@ -5,6 +5,7 @@ require('./appWrapper.scss');
 import fileManagerModule from '../fileManager/fileManager';
 
 import manageAppsModule from '../../services/manageApps';
+import draggableModule from './draggable';
 
 /* @ngInject */
 function component() {
@@ -29,5 +30,6 @@ export default angular
     .module('appWrapperModule', [
         fileManagerModule.name,
         manageAppsModule.name,
+        draggableModule.name
     ])
     .component('appWrapper', component());

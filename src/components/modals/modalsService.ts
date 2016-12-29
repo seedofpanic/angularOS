@@ -33,7 +33,7 @@ export class Modal {
 }
 
 /* @ngInject */
-class Service {
+export class Service {
 
     static $inject = ['$q'];
 

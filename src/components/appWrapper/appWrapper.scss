@@ -1,3 +1,7 @@
+app-wrapper {
+    position: relative;
+}
+
 .app-wrapper {
     width: 60rem;
     height: 60rem;
@@ -5,6 +9,7 @@
     padding: 1rem;
     box-sizing: border-box;
     background-color: #eeeeee;
+    position: absolute;
 }
 
 @media screen and (max-width: 600px) {
