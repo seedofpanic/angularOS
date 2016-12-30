@@ -1,5 +1,8 @@
 app-wrapper {
-    position: relative;
+    position: absolute;
+    top: 5rem;
+    height: calc(100% - 5rem);
+    width: 100%;
 }
 
 .app-wrapper {

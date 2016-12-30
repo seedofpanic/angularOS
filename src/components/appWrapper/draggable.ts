@@ -15,10 +15,11 @@ function directive($document) {
 
         element.on('mousedown', function(event) {
             event.preventDefault();
+            event.stopImmediatePropagation();
             startX = event.screenX - x;
             startY = event.screenY - y;
-            $document.on('mousemove', mousemove);
-            $document.on('mouseup', mouseup);
+            angular.element(document.getElementById('app-wrapper')).on('mousemove', mousemove);
+            angular.element(document.getElementById('app-wrapper')).on('mouseup', mouseup);
         });
 
         function mousemove(event) {
@@ -31,8 +32,8 @@ function directive($document) {
         }
 
         function mouseup() {
-          $document.off('mousemove', mousemove);
-          $document.off('mouseup', mouseup);
+            angular.element(document.getElementById('app-wrapper')).off('mousemove', mousemove);
+            angular.element(document.getElementById('app-wrapper')).off('mouseup', mouseup);
         }
     }
 }

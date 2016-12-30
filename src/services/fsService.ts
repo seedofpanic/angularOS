@@ -1,17 +1,15 @@
 import * as angular from "angular";
 
-// Service.$inject = ['dependencies'];
-
 /* @ngInject */
 function Service() {
-        const fs = {
+        let fs = {
             '/': {
                 'home': {
 
                 },
                 'images': {
-                    kartinka: 'loool',
-                    daun: {
+                    text: 'loool',
+                    hehheh: {
                         dcp: 'dcp'
                     }
                 },
@@ -32,21 +30,37 @@ function Service() {
 
         this.addFolder = function(currentPath, folderName) {
             currentPath['new folder' + Object.keys(currentPath).length] = {};
+            this.updateFs();
             return currentPath;
         }
 
         this.removeItem = function(currentPath, itemName) {
             delete currentPath[itemName];
+            this.updateFs();
             return currentPath;
         }
 
         this.addFile = function(currentPath, fileName) {
             currentPath[Object.keys(currentPath).length + '.file'] = '';
+            this.updateFs();
             return currentPath;
         }
 
         this.getFs = function() {
+            this.initFs();
             return fs;
+        }
+
+        this.updateFs = function() {
+            localStorage.setItem('fs', JSON.stringify(fs));
+        }
+
+        this.initFs = function() {
+            if (localStorage.getItem('fs')) {
+                fs = JSON.parse(localStorage.getItem('fs'));
+            } else {
+                localStorage.setItem('fs', JSON.stringify(fs));
+            }
         }
 }
 

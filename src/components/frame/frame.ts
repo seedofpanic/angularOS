@@ -7,6 +7,7 @@ import serviceUser from '../../services/serviceUser';
 import manageAppsModule from "../../services/manageApps";
 
 import appWrapper from '../appWrapper/appWrapper';
+import clockModule from '../clock/clock';
 
 
 /* @ngInject */
@@ -60,6 +61,7 @@ export default angular
     .module('frameModule', [
         serviceUser.name,
         manageAppsModule.name,
-        appWrapper.name
+        appWrapper.name,
+        clockModule.name
     ])
     .component('osFrame', component());

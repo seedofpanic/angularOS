@@ -38,18 +38,26 @@ class Controller {
         this.favourites = this.fs['/'];
         this.selectedItem = {
             key: '',
-            value: ''
+            value: '',
+            target: ''
         }
     }
 
-    public selectItem(key, value) {
+    public selectItem(key, value, $event) {
+        this.clearSelectedItem();
         this.selectedItem.key = key;
         this.selectedItem.value = value;
+        this.selectedItem.target = $event.target;
+        this.selectedItem.target.style.color = '#f00';
     }
 
     public clearSelectedItem() {
-        this.selectedItem.key = '';
-        this.selectedItem.value = '';
+        if (this.selectedItem.target != '') {
+            this.selectedItem.key = '';
+            this.selectedItem.value = '';
+            this.selectedItem.target.style.color = '#000';
+            this.selectedItem.target = '';
+        }
     }
 
     public showTreeElem(value, key) {
