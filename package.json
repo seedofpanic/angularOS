@@ -4,7 +4,8 @@
   "description": "angular os application",
   "main": "app.js",
   "scripts": {
-    "devserver": "webpack-dev-server --inline --hot --colors --content-base src --hot --debug --port 8090"
+    "devserver": "webpack-dev-server --inline --hot --colors --content-base src --hot --debug --port 8090",
+    "server": "node server/server.js"
   },
   "keywords": [
     "angular",
@@ -40,6 +41,7 @@
   "dependencies": {
     "angular": "^1.5.9",
     "angular-ui-router": "^0.3.2",
+    "express": "^4.14.0",
     "webpack": "^1.14.0"
   },
   "repository": {
