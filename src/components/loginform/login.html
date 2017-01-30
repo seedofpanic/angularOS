@@ -7,5 +7,6 @@
         <input type="password" class="login__input" name="password" placeholder="password" ng-model="$ctrl.password" required>
         <span class="warning-alert" ng-show="loginForm.password.$invalid && loginForm.password.$touched">invalid login</span>
     </label>
-    <button type="submit" name="button" class="login__button" ng-disabled="loginForm.$invalid" ng-click="$ctrl.sendUserLogin()">LogIn</button>
+    <button type="submit" name="button" class="login__button" ng-disabled="loginForm.$invalid"
+            ng-click="$ctrl.sendUserLogin()">LogIn</button>
 </form>

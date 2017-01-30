@@ -14,7 +14,7 @@ function serveUser($state, $stateParams, modalService) {
             sessionStorage.setItem(userLogin, 'true');
             $state.go($state.get('desktop'), {userId: userLogin});
         } else {
-            modalService.openModal('<div clas="lolka">login failed</div>');
+            modalService.openModal('<div class="lolka">login failed</div>');
         }
     }
 

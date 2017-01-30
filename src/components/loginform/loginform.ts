@@ -29,9 +29,7 @@ class loginCtrl {
     }
 
     public sendUserLogin() {
-        this.sendUserLogin = () => {
-            this.serveUser.login(this.login, this.password);
-        }
+        this.serveUser.login(this.login, this.password);
     }
 }
 
