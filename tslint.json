@@ -34,8 +34,7 @@
         "variable-name": [
             true,
             "ban-keywords",
-            "check-format",
-            "allow-pascal-case"
+            "check-format"
         ],
         "whitespace": [
             true,
@@ -106,6 +105,14 @@
             "check-operator",
             "check-separator",
             "check-type"
+        ],
+        "array-type": [
+            true,
+            "array"
+        ],
+        "interface-name": [
+            true,
+            "always-prefix"
         ]
     }
 }
