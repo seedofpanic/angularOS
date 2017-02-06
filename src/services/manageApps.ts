@@ -1,7 +1,5 @@
 import * as angular from 'angular';
 
-// Service.$inject = ['desktopCtrl'];
-
 /* @ngInject */
 function Service() {
     this.openApp = function(appName) {
