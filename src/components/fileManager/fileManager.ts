@@ -1,4 +1,4 @@
-import * as angular from "angular";
+import * as angular from 'angular';
 
 const fileManagerTemplate = require('./fileManager.html');
 require('./fileManager.scss');
@@ -7,7 +7,7 @@ import fsModule from '../../services/fsService';
 
 /* @ngInject */
 function component() {
-    var component = {
+    let component = {
         template: fileManagerTemplate,
         controller: Controller,
         bindings: {
@@ -40,7 +40,7 @@ class Controller {
             key: '',
             value: '',
             target: ''
-        }
+        };
     }
 
     public selectItem(key, value, $event) {
@@ -52,7 +52,7 @@ class Controller {
     }
 
     public clearSelectedItem() {
-        if (this.selectedItem.target != '') {
+        if (this.selectedItem.target !== '') {
             this.selectedItem.key = '';
             this.selectedItem.value = '';
             this.selectedItem.target.style.color = '#000';
@@ -75,7 +75,7 @@ class Controller {
     public goBack() {
         if (this.path.length > 1) {
             this.path.pop();
-            this.folderValue = this.path[this.path.length-1];
+            this.folderValue = this.path[this.path.length - 1];
             this.clearSelectedItem();
         }
     }
@@ -91,7 +91,7 @@ class Controller {
     }
 
     public removeItem(fsService) {
-        this.folderValue = this.fsService.removeItem(this.folderValue, this.selectedItem.key)
+        this.folderValue = this.fsService.removeItem(this.folderValue, this.selectedItem.key);
         this.clearSelectedItem();
     }
 }

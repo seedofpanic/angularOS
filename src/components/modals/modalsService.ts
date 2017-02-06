@@ -1,4 +1,4 @@
-import * as angular from "angular";
+import * as angular from 'angular';
 
 export class Modal {
 
@@ -28,7 +28,7 @@ export class Modal {
         }).catch(function() {
             self.modalsService.close(self);
             self.close();
-        })
+        });
     }
 }
 
@@ -49,7 +49,7 @@ export class Service {
     }
 
     private show(template: string): void {
-        var deferred = this.$q.defer();
+        let deferred = this.$q.defer();
         const modal = new Modal(template, this, deferred);
         this.modals.push(modal);
         modal.resolveModal();

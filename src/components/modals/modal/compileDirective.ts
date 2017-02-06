@@ -1,8 +1,8 @@
-import * as angular from "angular";
+import * as angular from 'angular';
 
 /* @ngInject */
 function directive($compile) {
-    var directive = {
+    let directive = {
         restrict: 'A',
         scope: {
             template: '<'

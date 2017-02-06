@@ -1,4 +1,4 @@
-import * as angular from "angular";
+import * as angular from 'angular';
 
 const regStyles = require('./regform.scss');
 const regTemplate = require('./registration.html');
@@ -13,14 +13,14 @@ function registration() {
             secondPassword: '<'
         },
         template: regTemplate,
-        controller: registrationCtrl,
+        controller: RegistrationCtrl,
         controllerAs: 'regCtrl'
     };
 
     return component;
 }
 
-class registrationCtrl {
+class RegistrationCtrl {
     static $inject = ['serveUser'];
 
     private firstPassword: string;
@@ -34,7 +34,7 @@ class registrationCtrl {
     }
 
     public sendUserRegistration() {
-        if (this.firstPassword == this.secondPassword) {
+        if (this.firstPassword === this.secondPassword) {
             this.serveUser.register(this.login, this.firstPassword);
         } else {
             console.log('Sorry passwords not indent');

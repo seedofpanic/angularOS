@@ -1,5 +1,5 @@
 const appWrapperTemplate = require('./appWrapper.html');
-import * as angular from "angular";
+import * as angular from 'angular';
 require('./appWrapper.scss');
 
 import fileManagerModule from '../fileManager/fileManager';
