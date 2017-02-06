@@ -14,7 +14,7 @@ function directive($document) {
         let startX = 0, startY = 0, x = 0, y = 0;
 
         element.on('mousedown', function(event) {
-            event.preventDefault();
+
             event.stopImmediatePropagation();
             startX = event.screenX - x;
             startY = event.screenY - y;

@@ -1,0 +1,22 @@
+<button ng-click="$ctrl.getUp()">Наверх</button><br>
+<form ng-submit="$ctrl.get()">
+    <input type="text" ng-model="$ctrl.path" size="70" draggable="false"/>
+    <button type="submit">Перейти</button>
+    <br>
+</form>
+
+
+<ul>
+    <style>
+        .downfolder {
+            color: blue;
+        }
+    </style>
+    <div ng-click="$ctrl.get()">
+    <create-document></create-document>
+    </div>
+    <li ng-repeat="file in $ctrl.folderValue"><u>
+        <div ng-dblclick="$ctrl.getDown(file)" class="downfolder" id="downFolderName" ng-click="$ctrl.selectItem()">{{file}}</div>
+    </u></li>
+
+</ul>

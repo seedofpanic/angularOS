@@ -5,21 +5,11 @@
     <button ng-click="$ctrl.removeItem()" type="button" class="file-manager__button remove-file">удалить выбранный</button>
 </div>
 <div class="file-manager__content">
-    <div class="tree-view">
-        <h4 class="favourites">
-            favourites
-        </h4>
-        <ul class="tree-view__list">
-            <li ng-repeat="(key, value) in $ctrl.favourites">
-                <button class="tree-view__button" type="button" ng-dblclick="$ctrl.showTreeElem(value, key)" ng-click="$ctrl.selectItem(key, value, $event)">{{key}}</button>
-            </li>
-        </ul>
-    </div>
+
     <div class="folder-view">
         <ul>
-            <li ng-repeat="(key, value) in $ctrl.folderValue" class="folder-view__item" ng-if="!$ctrl.isValueChanged">
-                <button ng-dblclick="$ctrl.showFolderElem(value, key)" ng-click="$ctrl.selectItem(key, value, $event)" class="folder-view__button" type="button">{{key}}</button>
-            </li>
+                <button ng-dblclick="$ctrl.showFolderElem(value, key)" ng-click="$ctrl.selectItem(key, value, $event)"
+                        class="folder-view__button" type="button">{{$ctrl.folderValue}}</button>
         </ul>
     </div>
 </div>

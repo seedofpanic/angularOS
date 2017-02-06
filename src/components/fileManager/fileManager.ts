@@ -1,9 +1,10 @@
+
+import createDocumentModule from './createDocument/createDocument';
+import fileManagerFactoryModule from './fileManagerFactory';
 import * as angular from 'angular';
 
-const fileManagerTemplate = require('./fileManager.html');
-require('./fileManager.scss');
 
-import fsModule from '../../services/fsService';
+const fileManagerTemplate = require ('../../../server/templates/fileManagerTemplate.html');
 
 /* @ngInject */
 function component() {
@@ -11,7 +12,7 @@ function component() {
         template: fileManagerTemplate,
         controller: Controller,
         bindings: {
-            fs: '<'
+
         }
     };
 
@@ -19,85 +20,83 @@ function component() {
 }
 
 class Controller {
-    static $inject = ['fsService'];
+    static $inject = ['$http', 'fileManagerService'];
 
-    private fs: any;
-    private fsService;
-    private isValueChanged: boolean;
-    private path: any[];
+    private path;
     private folderValue;
-    private selectedItem;
-    private favourites;
+    $http;
+    public get;
+    public getUp;
+    public getDown;
+    private pathSlashPos;
+    public pathUp;
+    private fileManagerService;
 
-    constructor(fsService) {
-        this.fsService = fsService;
-        this.fs = fsService.getFs();
-        this.isValueChanged = false;
-        this.path = [this.fs];
-        this.folderValue = this.path[0];
-        this.favourites = this.fs['/'];
-        this.selectedItem = {
-            key: '',
-            value: '',
-            target: ''
+
+    constructor($http, fileManagerService) {
+        let self = this;
+        this.$http = $http;
+
+        this.path = 'C:';
+        self.path === 'C:' ? self.path = 'C:\\' : true;
+        self.path === 'D:' ? self.path = 'D:\\' : true;
+
+        this.$http.get('http://localhost:3000/file/read?dir=' + self.path)
+            .then(function (res) {
+                self.folderValue = res.data;
+            });
+        this.get = function () {
+            self.path === 'C:' ? self.path = 'C:\\' : true;
+            self.path === 'D:' ? self.path = 'D:\\' : true;
+            self.$http.get('http://localhost:3000/file/read?dir=' + self.path)
+                .then(function (res) {
+                    self.folderValue = res.data;
+                    console.log(res);
+                });
+            fileManagerService.setPath(self.path);
+            console.log('self.path: ' + self.path);
+            console.log('fileManagerService.getPath: ' + fileManagerService.getPath());
         };
-    }
 
-    public selectItem(key, value, $event) {
-        this.clearSelectedItem();
-        this.selectedItem.key = key;
-        this.selectedItem.value = value;
-        this.selectedItem.target = $event.target;
-        this.selectedItem.target.style.color = '#f00';
-    }
+        this.getUp = function () {
+            self.path = self.path + '';
+            let a = self.path.lastIndexOf('\\'); // находим путь к предыдущей папке
+            let b = self.path.lastIndexOf('/');
+            a > b ? self.pathSlashPos = a : self.pathSlashPos = b;
+            self.pathUp = self.path.slice(0, self.pathSlashPos);
 
-    public clearSelectedItem() {
-        if (this.selectedItem.target !== '') {
-            this.selectedItem.key = '';
-            this.selectedItem.value = '';
-            this.selectedItem.target.style.color = '#000';
-            this.selectedItem.target = '';
-        }
-    }
+            self.pathUp === 'C:' ? self.pathUp = 'C:\\' : true;
+            self.pathUp === 'D:' ? self.pathUp = 'D:\\' : true;
+            self.path = self.pathUp;
 
-    public showTreeElem(value, key) {
-        this.folderValue = value;
-        this.path = [this.path[0], value];
-        this.clearSelectedItem();
-    }
+            console.log(self.pathUp);
+            self.path = self.pathUp;
+            self.$http.get('http://localhost:3000/file/read?dir=' + self.pathUp)
+                .then(function (res) {
+                    self.folderValue = res.data;
+                    console.log(res);
+                });
+            fileManagerService.setPath(self.path);
+        };
 
-    public showFolderElem(value, key) {
-        this.folderValue = value;
-        this.path.push(value);
-        this.clearSelectedItem();
-    }
+        this.getDown = function (file) {
+            let self = this;
+            this.$http = $http;
 
-    public goBack() {
-        if (this.path.length > 1) {
-            this.path.pop();
-            this.folderValue = this.path[this.path.length - 1];
-            this.clearSelectedItem();
-        }
-    }
-
-    public addFolder(fsService) {
-        this.folderValue = this.fsService.addFolder(this.folderValue);
-        this.clearSelectedItem();
-    }
-
-    public addFile(fsService) {
-        this.folderValue = this.fsService.addFile(this.folderValue);
-        this.clearSelectedItem();
-    }
-
-    public removeItem(fsService) {
-        this.folderValue = this.fsService.removeItem(this.folderValue, this.selectedItem.key);
-        this.clearSelectedItem();
+            self.$http.get('http://localhost:3000/file/read?dir=' + self.path + '/' + file)
+                .then(function (res) {
+                    self.folderValue = res.data;
+                    console.log(res);
+                });
+            self.path = self.path + '\\' + file;
+            fileManagerService.setPath(self.path);
+        };
     }
 }
 
 export default angular
     .module('fileManagerModule', [
-        fsModule.name
+        createDocumentModule.name,
+        fileManagerFactoryModule.name
     ])
     .component('fileManager', component());

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <title>Title</title>
+</head>
+<body ng-app="myApp">
+<input type="text" id="addressHD" placeholder="полный адрес папки" autofocus
+       size="40" value="C:\Users\shemh\WebstormProjects\Learning"><br>
+
+
+<div id="folderBox">
+    <folder-content></folder-content>
+</div>
+
+<div id="createFileBox">
+    <form ng-hide="createform">
+        <button ng-click="createform = true">Создать текстовый файл</button>
+    </form>
+
+    <form ng-show="createform">
+        <button ng-click="createform = false">Закрыть форму</button>
+        <create-document-form></create-document-form>
+    </form>
+</div>
+
+
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
