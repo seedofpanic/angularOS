@@ -5,7 +5,7 @@ const clockTemplate = require('./clock.html');
 
 /* @ngInject */
 function component() {
-    var component = {
+    let component = {
         template: clockTemplate,
         controller: Controller
     };

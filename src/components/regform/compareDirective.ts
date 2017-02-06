@@ -1,11 +1,11 @@
-import * as angular from "angular";
+import * as angular from 'angular';
 
 function directive() {
     const directive = {
         restrict: 'A',
         require: 'ngModel',
         scope: {
-            otherPassValue: "=comparePass"
+            otherPassValue: '=comparePass'
         },
         link: linkFunc
     };
@@ -14,16 +14,16 @@ function directive() {
 
     function linkFunc(scope, el, attr, ngModel) {
         ngModel.$validators.$compareTo = function(modelValue, viewValue) {
-            if (viewValue == scope.otherPassValue) {
+            if (viewValue === scope.otherPassValue) {
                 ngModel.$compareTo = false;
             } else {
                 ngModel.$compareTo = true;
             }
 
-            return viewValue == scope.otherPassValue;
+            return viewValue === scope.otherPassValue;
         };
 
-        scope.$watch("otherPassValue", function(modelValue, viewValue) {
+        scope.$watch('otherPassValue', function(modelValue, viewValue) {
                 ngModel.$validate();
         });
     }

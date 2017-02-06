@@ -1,8 +1,8 @@
-import * as angular from "angular";
+import * as angular from 'angular';
 
 /* @ngInject */
 function directive() {
-    var directive = {
+    let directive = {
         restrict: 'EA',
         scope: {
         },

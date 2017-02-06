@@ -11,6 +11,15 @@ module.exports = {
     },
 
     module: {
+
+        preLoaders: [
+            {
+                test: /\.tsx?$/,
+                loader: "tslint",
+                exclude: [/node_modules/]
+            },
+        ],
+
         loaders: [
             {
                 test: /\.js$/,
@@ -43,6 +52,12 @@ module.exports = {
                 loader: 'file-loader'
             }
         ]
+    },
+
+    tslint: {
+        configFile: "tslint.json",
+        emitErrors: true,
+        failOnHint: true
     },
 
     plugins: [

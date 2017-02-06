@@ -1,8 +1,8 @@
-import * as angular from "angular";
+import * as angular from 'angular';
 
 /* @ngInject */
 function directive($document) {
-    var directive = {
+    let directive = {
         restrict: 'A',
         scope: false,
         link: linkFunc
@@ -11,7 +11,7 @@ function directive($document) {
     return directive;
 
     function linkFunc(scope, element, attr, ctrl) {
-        var startX = 0, startY = 0, x = 0, y = 0;
+        let startX = 0, startY = 0, x = 0, y = 0;
 
         element.on('mousedown', function(event) {
             event.preventDefault();

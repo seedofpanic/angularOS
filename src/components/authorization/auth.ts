@@ -1,4 +1,4 @@
-import * as angular from "angular";
+import * as angular from 'angular';
 
 require('./auth.scss');
 const authTemplate = require('./auth.html');
@@ -9,13 +9,13 @@ function authorization() {
 
         },
         template: authTemplate,
-        controller: authCtrl
+        controller: AuthCtrl
     };
 
     return component;
 }
 
-class authCtrl {
+class AuthCtrl {
 
 }
 

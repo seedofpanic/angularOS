@@ -1,10 +1,10 @@
-import * as angular from "angular";
+import * as angular from 'angular';
 
 require('./frame.scss');
 const frameTemplate = require('./frame.html');
 
 import serviceUser from '../../services/serviceUser';
-import manageAppsModule from "../../services/manageApps";
+import manageAppsModule from '../../services/manageApps';
 
 import appWrapper from '../appWrapper/appWrapper';
 import clockModule from '../clock/clock';
@@ -12,7 +12,7 @@ import clockModule from '../clock/clock';
 
 /* @ngInject */
 function component() {
-    var component = {
+    let component = {
         template: frameTemplate,
         controller: Controller,
         bindings: {

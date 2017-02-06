@@ -3,13 +3,13 @@ function config($stateProvider, $urlRouterProvider) {
         name: 'authorization.login',
         url: '/login',
         template: '<login-form></login-form>'
-    }
+    };
 
     const registrationState = {
         name: 'authorization.registration',
         url: '/registration',
         template: '<reg-form></reg-form>'
-    }
+    };
 
     const authState = {
         name: 'authorization',
@@ -18,7 +18,7 @@ function config($stateProvider, $urlRouterProvider) {
         data: {
           'noLogin': true
         }
-    }
+    };
 
     const desktopState = {
         name: 'desktop',
@@ -35,14 +35,14 @@ function config($stateProvider, $urlRouterProvider) {
 
         onEnter: function(serveUser, $stateParams, $state) {
             if (!serveUser.checkIfLogged($stateParams.userId)) {
-                $state.go('authorization.login')
+                $state.go('authorization.login');
             }
         },
 
         onExit: function($stateParams) {
             sessionStorage.setItem($stateParams.userId, 'false');
         }
-    }
+    };
 
     $stateProvider.state(authState);
     $stateProvider.state(loginState);

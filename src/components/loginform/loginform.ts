@@ -1,4 +1,4 @@
-import * as angular from "angular";
+import * as angular from 'angular';
 
 require('./loginform.scss');
 const loginTemplate = require('./login.html');
@@ -11,13 +11,13 @@ function login() {
             password: '<'
         },
         template: loginTemplate,
-        controller: loginCtrl
+        controller: LoginCtrl
     };
 
     return component;
 }
 
-class loginCtrl {
+class LoginCtrl {
     static $inject = ['serveUser'];
 
     private serveUser;

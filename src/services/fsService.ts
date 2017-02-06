@@ -1,4 +1,4 @@
-import * as angular from "angular";
+import * as angular from 'angular';
 
 /* @ngInject */
 function Service() {
@@ -26,34 +26,34 @@ function Service() {
                     }
                 }
             }
-        }
+        };
 
         this.addFolder = function(currentPath, folderName) {
             currentPath['new folder' + Object.keys(currentPath).length] = {};
             this.updateFs();
             return currentPath;
-        }
+        };
 
         this.removeItem = function(currentPath, itemName) {
             delete currentPath[itemName];
             this.updateFs();
             return currentPath;
-        }
+        };
 
         this.addFile = function(currentPath, fileName) {
             currentPath[Object.keys(currentPath).length + '.file'] = '';
             this.updateFs();
             return currentPath;
-        }
+        };
 
         this.getFs = function() {
             this.initFs();
             return fs;
-        }
+        };
 
         this.updateFs = function() {
             localStorage.setItem('fs', JSON.stringify(fs));
-        }
+        };
 
         this.initFs = function() {
             if (localStorage.getItem('fs')) {
@@ -61,7 +61,7 @@ function Service() {
             } else {
                 localStorage.setItem('fs', JSON.stringify(fs));
             }
-        }
+        };
 }
 
 export default angular

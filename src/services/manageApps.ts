@@ -1,4 +1,4 @@
-import * as angular from "angular";
+import * as angular from 'angular';
 
 // Service.$inject = ['desktopCtrl'];
 
@@ -8,23 +8,23 @@ function Service() {
         this.closeAllApps();
         this.apps[appName] = true;
         return this.apps;
-    }
+    };
 
     this.closeAllApps = function() {
-        for (var app in this.apps) {
+        for (let app in this.apps) {
             app = 'false';
         }
         return this.apps;
-    }
+    };
 
     this.closeApp = function(appName) {
         this.apps[appName] = false;
         return this.apps;
-    }
+    };
 
     this.apps = {
         'Finder': false,
-    }
+    };
 }
 
 export default angular

@@ -1,7 +1,7 @@
-import * as angular from "angular";
+import * as angular from 'angular';
 
-import modalsService from "./modalsService";
-import modalModule from "./modal/modal";
+import modalsService from './modalsService';
+import modalModule from './modal/modal';
 
 require('./modals.scss');
 const modalsTemplate = require('./modals.html');
