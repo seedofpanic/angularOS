@@ -1,0 +1,9 @@
+<button ng-click="crFolder = true" ng-hide="crFolder">Новая папка</button>
+<div ng-show="crFolder">
+    <button ng-click="crFolder = false">&#216; Закрыть</button>
+    <div>Название папки</div>
+    <input type="text" ng-model="$ctrl.newdir" size="40" draggable="false"/><br>
+
+
+    <button ng-click="$ctrl.create()">&#10003; Создать папку</button>
+</div>

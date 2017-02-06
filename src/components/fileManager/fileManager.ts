@@ -1,10 +1,11 @@
 
 import createDocumentModule from './createDocument/createDocument';
+import createFolderModule from './createFolder/createFolder';
 import fileManagerFactoryModule from './fileManagerFactory';
 import * as angular from 'angular';
 
 
-const fileManagerTemplate = require ('../../../server/templates/fileManagerTemplate.html');
+const fileManagerTemplate = require ('./fileManagerTemplate.html');
 
 /* @ngInject */
 function component() {
@@ -28,6 +29,7 @@ class Controller {
     public get;
     public getUp;
     public getDown;
+    public deleteFile;
     private pathSlashPos;
     public pathUp;
     private fileManagerService;
@@ -91,12 +93,21 @@ class Controller {
             self.path = self.path + '\\' + file;
             fileManagerService.setPath(self.path);
         };
+        this.deleteFile = function (file) {
+            let self = this;
+            this.$http = $http;
+            self.$http.get('http://localhost:3000/file/delete?name=' + self.path + '/' + file)
+                .then(function (res) {
+                    self.get ();
+                });
+        };
     }
 }
 
 export default angular
     .module('fileManagerModule', [
         createDocumentModule.name,
-        fileManagerFactoryModule.name
+        fileManagerFactoryModule.name,
+        createFolderModule.name
     ])
     .component('fileManager', component());

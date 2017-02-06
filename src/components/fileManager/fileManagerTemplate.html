@@ -1,0 +1,30 @@
+<button ng-click="$ctrl.getUp()">Наверх</button><br>
+<form ng-submit="$ctrl.get()">
+    <input type="text" ng-model="$ctrl.path" size="70" draggable="false"/>
+    <button type="submit">Перейти</button>
+    <br>
+</form>
+
+
+<ul>
+    <style>
+        .downfolder {
+            color: blue;
+        }
+    </style>
+    <p></p>
+    <div ng-click="$ctrl.get()"> <!-- При нажатиях в этом блоке обновляет список файлов в папке -->
+        <create-document></create-document>
+    </div>
+    <br/>
+    <div ng-click="$ctrl.get()">
+        <create-folder></create-folder>
+    </div>
+    <br/>
+    <li ng-repeat="file in $ctrl.folderValue"><u>
+        <div ng-dblclick="$ctrl.getDown(file)" class="downfolder" id="downFolderName" ng-click="$ctrl.selectItem()" title="Удалить">
+        <text ng-click="$ctrl.get()"><button ng-click="$ctrl.deleteFile(file)">&#10008;</button></text>
+        {{file}}</div>
+    </u></li>
+
+</ul>
