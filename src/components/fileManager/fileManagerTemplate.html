@@ -22,9 +22,21 @@
     </div>
     <br/>
     <li ng-repeat="file in $ctrl.folderValue"><u>
-        <div ng-dblclick="$ctrl.getDown(file)" class="downfolder" id="downFolderName" ng-click="$ctrl.selectItem()" title="Удалить">
-        <text ng-click="$ctrl.get()"><button ng-click="$ctrl.deleteFile(file)">&#10008;</button></text>
-        {{file}}</div>
+        <div class="downfolder" id="downFolderName" ng-click="$ctrl.selectItem()">
+            <text ng-click="$ctrl.get()">
+                <button ng-click="$ctrl.deleteFile(file)" title="Удалить">&#10008;</button>
+            </text>
+            <button ng-click="editname = true">&#9998;</button>
+            <div ng-show="editname == true">
+                <input ng-model="$ctrl.newName" draggable="false" autofocus>
+                <text>{{file}}</text>
+                <button ng-click="editname = false" title="Отмена">&#x21ba;</button>
+                <form ng-click="editname = false">
+                    <button ng-click="$ctrl.renameFile(file)">Переименовать</button><p></p>
+                </form>
+            </div>
+            <text ng-dblclick="$ctrl.getDown(file)" ng-hide="editname == true">{{file}}</text>
+        </div>
     </u></li>
 
 </ul>

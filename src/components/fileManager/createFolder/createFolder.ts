@@ -30,9 +30,12 @@ class Controller {
             self.$http.get('http://localhost:3000/dir/create?' +
                 'newdir=' + fileManagerService.getPath() + '/' + self.newdir)
                 .then(function (res) {
-                    alert(res.data.message);
+                    if (res.data.message === true) { // Заменить
+                        console.log('папка создана');
                     console.log(fileManagerService.getPath());
                     self.newdir = '';
+                    } else {modalService.openModal('<div class="lolka">Не удалось создать папку</div>');
+                    }
                 });
         };
     }

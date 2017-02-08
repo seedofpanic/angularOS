@@ -19,11 +19,15 @@ app.get('/file/read', function (req, res) { //отображение файло�
 });
 
 app.get('/dir/create', function (req, res) {
-   fs.mkdir(req.query.newdir, function () {
-       res.json ({message: 'Папка создана'});
-
-       console.log(req.query.newdir);
-       console.log('Folder created');
+   fs.mkdir(req.query.newdir, function (res2) {
+       if (res2 === null) {
+           res.json({message: true});
+           console.log(req.query.name);
+           console.log("The file was saved!");
+       } else {
+           console.log('Ошибка при создании файла: ' + res2);
+           res.json({message: false});
+       }
    });
     
 });
@@ -41,6 +45,18 @@ app.get('/file/create', function (req, res) { //создание файлов, �
     });
 });
 
+app.get('/file/rename', function (req, res) { // переименование файла, где указывается старый путь
+   fs.rename(req.query.oldPath, req.query.newPath, function (res2) { // и новый путь - это новое имя
+       if (res2 === null) {
+           res.json({message: true});
+           console.log("The file was renamed!");
+       } else {
+           console.log('Ошибка при переименовании файла: ' + res2);
+           res.json({message: false});
+       }
+   });
+});
+
 app.get('/file/delete', function (req, res) { //удаление файлов, где name - абсолютный путь и название файла
     let address = req.query.name;
     console.log('путь: ' + address);
@@ -52,8 +68,6 @@ app.get('/file/delete', function (req, res) { //удаление файлов, �
     }
 
     if (fs.lstatSync(address).isDirectory()) {
-
-
         function rmdir (address) {
             let list = fs.readdirSync(address);
             for(let i = 0; i < list.length; i++) {

@@ -14,7 +14,8 @@ function component() {
         controller: Controller,
         bindings: {
 
-        }
+        }/*,
+         scope: 'fileManagerScope'*/
     };
 
     return component;
@@ -33,13 +34,14 @@ class Controller {
     private pathSlashPos;
     public pathUp;
     private fileManagerService;
+    public renameFile;
 
 
     constructor($http, fileManagerService) {
         let self = this;
         this.$http = $http;
 
-        this.path = 'C:';
+        this.path = 'C:\\Users\\shemh\\Downloads';
         self.path === 'C:' ? self.path = 'C:\\' : true;
         self.path === 'D:' ? self.path = 'D:\\' : true;
 
@@ -47,6 +49,7 @@ class Controller {
             .then(function (res) {
                 self.folderValue = res.data;
             });
+
         this.get = function () {
             self.path === 'C:' ? self.path = 'C:\\' : true;
             self.path === 'D:' ? self.path = 'D:\\' : true;
@@ -93,6 +96,21 @@ class Controller {
             self.path = self.path + '\\' + file;
             fileManagerService.setPath(self.path);
         };
+
+        this.renameFile = function (file) {
+            let self = this;
+            this.$http = $http;
+            console.log('новые путь и имя: ' + self.path + '/' + self.newName);
+
+            self.$http.get('http://localhost:3000/file/rename?' +
+                'oldPath=' + self.path + '\\' + file + '&newPath=' + self.path + '\\' + self.newName)
+                .then(function (res) {
+                    self.get();
+                });
+            self.newName = '';
+
+        };
+
         this.deleteFile = function (file) {
             let self = this;
             this.$http = $http;

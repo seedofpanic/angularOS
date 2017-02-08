@@ -18,3 +18,4 @@ function Service() {
 export default angular
     .module('fileManagerFactoryModule', [])
     .service('fileManagerService', Service);
+
