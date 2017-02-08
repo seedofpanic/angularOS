@@ -17,59 +17,21 @@ function component() {
 }
 
 class Controller {
-    static $inject = ['$http', 'fileManagerService', 'modalService'];
-    $http;
-    $rootScope;
-    public fileManagerService;
+    static $inject = ['fileManagerService', 'modalService'];
+
     public create;
     public createfile;
-    public openModalToCreate;
 
-    constructor($http, fileManagerService, modalService) {
-        this.$http = $http;
-        // let self = this;
-        // let filePath = fileManagerService.getPath();
-        // this.createnewfile = function () {
-        // self.$http.get('http://localhost:3000/file/create?' +
-        //         'name=' + filePath + '/' + self.name + '.txt&data=' + self.data)
-        //     .then(function (res) {
-        //         if (res.data.message === true) { // Заменить
-        //             console.log('filePath: ' + filePath);
-        //             self.name = '';
-        //             self.data = '';
-        //         } else {modalService.openModal('<div class="lolka">Не удалось создать файл</div>');
-        //         }
-        //     });
+    constructor(fileManagerService, modalService) {
 
         this.create = function () {
-            let self = this;
-            let filePath = fileManagerService.getPath();
-            self.$http.get('http://localhost:3000/file/create?' +
-                'name=' + filePath + '/' + self.name + '.txt&data=' + self.data)
-                .then(function (res) {
-                    if (res.data.message === true) { // Заменить
-                        console.log('filePath: ' + filePath);
-                        self.name = '';
-                        self.data = '';
-                    } else {modalService.openModal('<div class="lolka">Не удалось создать файл</div>');
-                    }
-                });
+            fileManagerService.create();
         };
 
         this.createfile = function () {
             let self = this;
 
-            let filePath = fileManagerService.getPath();
-
-            let templateElement = angular.element(`<button ng-click="crDocument = false">&#216; Закрыть</button>
-    <div>Название файла</div>
-    <input type="text" ng-model="$ctrl.name" size="40" draggable="false"/><br>
-    <div>Содержимое</div>
-    <textarea type="text" ng-model="$ctrl.data" size="40" draggable="false"></textarea><br>
-    <button ng-click="$ctrl.create()">&#10003; Создать файл</button>`),
-                scope = 'fileManagerScope';
-
-            modalService.openModal(templateElement);
+            modalService.openModal('<create-file></create-file>', this.data);
         };
     }
 }
@@ -80,5 +42,3 @@ export default angular
         modalsService.name
     ])
     .component('createDocument', component());
-
-

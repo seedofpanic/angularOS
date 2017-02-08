@@ -14,8 +14,7 @@ function component() {
         controller: Controller,
         bindings: {
 
-        }/*,
-         scope: 'fileManagerScope'*/
+        }
     };
 
     return component;
