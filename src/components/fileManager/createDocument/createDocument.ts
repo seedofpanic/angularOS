@@ -56,21 +56,21 @@ class Controller {
                 });
         };
 
-    //     this.createfile = function () {
-    //         let self = this;
-    //
-    //         let filePath = fileManagerService.getPath();
-    //
-    //         let templateElement = angular.element(`<button ng-click="crDocument = false">&#216; Закрыть</button>
-    // <div>Название файла</div>
-    // <input type="text" ng-model="$ctrl.name" size="40" draggable="false"/><br>
-    // <div>Содержимое</div>
-    // <textarea type="text" ng-model="$ctrl.data" size="40" draggable="false"></textarea><br>
-    // <button ng-click="$ctrl.create()">&#10003; Создать файл</button>`),
-    //             scope = 'fileManagerScope';
-    //
-    //         modalService.openModal(templateElement);
-    //     };
+        this.createfile = function () {
+            let self = this;
+
+            let filePath = fileManagerService.getPath();
+
+            let templateElement = angular.element(`<button ng-click="crDocument = false">&#216; Закрыть</button>
+    <div>Название файла</div>
+    <input type="text" ng-model="$ctrl.name" size="40" draggable="false"/><br>
+    <div>Содержимое</div>
+    <textarea type="text" ng-model="$ctrl.data" size="40" draggable="false"></textarea><br>
+    <button ng-click="$ctrl.create()">&#10003; Создать файл</button>`),
+                scope = 'fileManagerScope';
+
+            modalService.openModal(templateElement);
+        };
     }
 }
 
