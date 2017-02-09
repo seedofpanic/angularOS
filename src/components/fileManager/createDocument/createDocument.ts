@@ -3,6 +3,7 @@ import * as angular from 'angular';
 import fileManagerFactoryModule from './../fileManagerFactory';
 const createDocumentTemplate = require('./createDocumentTmpl.html');
 import modalsService from './../../modals/modalsService';
+import createFileModule from './createFile/createFile';
 
 function component() {
     const component = {
@@ -25,39 +26,29 @@ class Controller {
     public createfile;
     public openModalToCreate;
 
-    constructor($http, fileManagerService, modalService) {
+    constructor($http, fileManagerService, modalService, createFile) {
         this.$http = $http;
-        // let self = this;
-        // let filePath = fileManagerService.getPath();
-        // this.createnewfile = function () {
-        // self.$http.get('http://localhost:3000/file/create?' +
-        //         'name=' + filePath + '/' + self.name + '.txt&data=' + self.data)
-        //     .then(function (res) {
-        //         if (res.data.message === true) { // Заменить
-        //             console.log('filePath: ' + filePath);
-        //             self.name = '';
-        //             self.data = '';
-        //         } else {modalService.openModal('<div class="lolka">Не удалось создать файл</div>');
-        //         }
-        //     });
 
         this.create = function () {
             let self = this;
-            let filePath = fileManagerService.getPath();
-            self.$http.get('http://localhost:3000/file/create?' +
-                'name=' + filePath + '/' + self.name + '.txt&data=' + self.data)
-                .then(function (res) {
-                    if (res.data.message === true) { // Заменить
-                        console.log('filePath: ' + filePath);
-                        self.name = '';
-                        self.data = '';
-                    } else {modalService.openModal('<div class="lolka">Не удалось создать файл</div>');
-                    }
-                });
+            console.log('кнопка создания файла нажалась');
+            // let filePath = fileManagerService.getPath();
+            // self.$http.get('http://localhost:3000/file/create?' +
+            //     'name=' + filePath + '/' + self.name + '.txt&data=' + self.data)
+            //     .then(function (res) {
+            //         if (res.data.message === true) { // Заменить
+            //             console.log('filePath: ' + filePath);
+            //             self.name = '';
+            //             self.data = '';
+            //         } else {modalService.openModal('<div class="lolka">Не удалось создать файл</div>');
+            //         }
+            //     });
+
+            fileManagerService.createfile(self.name, self.data);
         };
 
-        this.createfile = function () {
-            let self = this;
+        this.createfile = function () { // Этот метод будет запускаться через внутренний компонент createFile
+            let self = this; // но надо его сделать по нормальному
 
             let filePath = fileManagerService.getPath();
 
@@ -77,7 +68,8 @@ class Controller {
 export default angular
     .module('createDocumentModule', [
         fileManagerFactoryModule.name,
-        modalsService.name
+        modalsService.name,
+        createFileModule.name
     ])
     .component('createDocument', component());
 

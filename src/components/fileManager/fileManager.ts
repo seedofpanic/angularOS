@@ -59,8 +59,7 @@ class Controller {
                     console.log(res);
                 });
             fileManagerService.setPath(self.path);
-            console.log('self.path: ' + self.path);
-            console.log('fileManagerService.getPath: ' + fileManagerService.getPath());
+            console.log('Отображение папки обновилось: ' + self.path);
         };
 
         this.getUp = function () {
