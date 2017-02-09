@@ -1,15 +1,58 @@
 import * as angular from 'angular';
 
 
+
 export class Service {
-    static $inject = ['$http'];
+    static $inject = ['$http', 'modalService'];
     $http;
     public folderPath;
     public setPath;
     public getPath;
     public createfile;
+    public renewFolderContent;
+    public path;
+    public folderValue;
+    public get;
 
-    constructor($http) {
+    constructor($http, modalService) {
+        let self = this;
+        this.$http = $http;
+
+        this.path = 'C:\\Users\\shemh\\Downloads';
+        self.path === 'C:' ? self.path = 'C:\\' : true;
+        self.path === 'D:' ? self.path = 'D:\\' : true;
+
+        this.$http.get('http://localhost:3000/file/read?dir=' + self.path)
+            .then(function (res) {
+                self.folderValue = res.data;
+            });
+
+        this.get = function (path) {
+            if (path === undefined) {
+                path = self.path;
+            }
+            self.setPath(path);
+            self.path = path;
+            path === 'C:' ? path = 'C:\\' : true;
+            path === 'D:' ? path = 'D:\\' : true;
+            console.log('path из сервиса: ' + path);
+            self.$http.get('http://localhost:3000/file/read?dir=' + path)
+                .then(function (res) {
+                    // мутация для обновления списка данных в области папки
+                    self.folderValue.length = 0;
+                    console.log('folderValue в сервисе очищен: ' + self.folderValue);
+                    let i = 0;
+                    while (res.data[i]) {
+                        self.folderValue[i] = res.data[i];
+                        i++;
+                    }
+                    console.log('folderValue в сервисе заполнен: ' + self.folderValue);
+                    // мутация закончена
+
+                });
+            console.log('Область папки обновилось: ' + path);
+        };
+
         this.setPath = function (path) {
             this.folderPath = path;
         };
@@ -29,10 +72,14 @@ export class Service {
                 'name=' + filePath + '/' + self.name + '.txt&data=' + self.data)
                 .then(function (res) {
                     if (res.data.message === true) {
-                        console.log('filePath: ' + filePath);
-                    }// else {modalService.openModal('<div class="lolka">Не удалось создать файл</div>');
-                     // }
+                        console.log('Создан новый файл с адресом ' + filePath);
+                    } else {modalService.openModal('<div class="lolka">Не удалось создать файл</div>');
+                      }
                 });
+        };
+
+        this.renewFolderContent = function () {
+           console.log('kek');
         };
     }
 }

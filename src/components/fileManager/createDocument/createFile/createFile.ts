@@ -1,7 +1,6 @@
 
 
 import fileManagerFactoryModule from './../../fileManagerFactory';
-import modalsService from './../../../modals/modalsService';
 import * as angular from 'angular';
 
 
@@ -20,16 +19,22 @@ function component() {
 }
 
 class Controller {
-    static $inject = ['$http', 'fileManagerService', 'modalService'];
+    static $inject = ['$http', 'fileManagerService'];
     $http;
     public create;
     public createfile;
+    public clearInputBox;
 
-    constructor($http, fileManagerService, modalService) {
+    constructor($http, fileManagerService) {
         this.$http = $http;
+        let self = this;
         this.create = function () {
             console.log('Скрипт прошел через createFile');
             fileManagerService.createfile(this.name, this.data);
+            fileManagerService.get();
+        };
+
+        this.clearInputBox = function () {
             this.name = '';
             this.data = '';
         };
@@ -38,7 +43,6 @@ class Controller {
 
 export default angular
     .module('createFileModule', [
-        fileManagerFactoryModule.name,
-        modalsService.name
+        fileManagerFactoryModule.name
     ])
     .component('createFile', component());

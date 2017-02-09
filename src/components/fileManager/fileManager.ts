@@ -25,7 +25,7 @@ class Controller {
     static $inject = ['$http', 'fileManagerService'];
 
     private path;
-    private folderValue;
+    public folderValue;
     $http;
     public get;
     public getUp;
@@ -41,9 +41,9 @@ class Controller {
         let self = this;
         this.$http = $http;
 
-        this.path = 'C:\\Users\\shemh\\Downloads';
-        self.path === 'C:' ? self.path = 'C:\\' : true;
-        self.path === 'D:' ? self.path = 'D:\\' : true;
+        this.path = fileManagerService.path;
+        this.folderValue = fileManagerService.folderValue;
+
 
         this.$http.get('http://localhost:3000/file/read?dir=' + self.path)
             .then(function (res) {
@@ -51,15 +51,10 @@ class Controller {
             });
 
         this.get = function () {
-            self.path === 'C:' ? self.path = 'C:\\' : true;
-            self.path === 'D:' ? self.path = 'D:\\' : true;
-            self.$http.get('http://localhost:3000/file/read?dir=' + self.path)
-                .then(function (res) {
-                    self.folderValue = res.data;
-                    console.log(res);
-                });
-            fileManagerService.setPath(self.path);
-            console.log('Отображение папки обновилось: ' + self.path);
+            console.log('folderValue из конструктора: ' + self.folderValue);
+            console.log('path из конструктора' + self.path);
+            fileManagerService.get(self.path);
+            this.folderValue = fileManagerService.folderValue;
         };
 
         this.getUp = function () {
@@ -73,7 +68,7 @@ class Controller {
             self.pathUp === 'D:' ? self.pathUp = 'D:\\' : true;
             self.path = self.pathUp;
 
-            console.log(self.pathUp);
+            console.log('Перешли к верхней папке: ' + self.pathUp);
             self.path = self.pathUp;
             self.$http.get('http://localhost:3000/file/read?dir=' + self.pathUp)
                 .then(function (res) {

@@ -6,7 +6,7 @@
 </form>
 
 
-<ul>
+<ul draggable="false">
     <style>
         .downfolder {
             color: blue;
@@ -28,8 +28,8 @@
             </text>
             <button ng-click="editname = true">&#9998;</button>
             <div ng-show="editname == true">
-                <input ng-model="$ctrl.newName" draggable="false" autofocus>
-                <text>{{file}}</text>
+                <input ng-model="$ctrl.newName" autofocus>
+                <text>{{file}}<txt style="">&nbsp;&nbsp;</txt></text>
                 <button ng-click="editname = false" title="Отмена">&#x21ba;</button>
                 <form ng-click="editname = false">
                     <button ng-click="$ctrl.renameFile(file)">Переименовать</button><p></p>
