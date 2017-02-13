@@ -1,42 +1,68 @@
+<hr/>
+<div кек draggable="false">
 <button ng-click="$ctrl.getUp()">Наверх</button><br>
 <form ng-submit="$ctrl.get()">
-    <input type="text" ng-model="$ctrl.path" size="70" draggable="false"/>
+    <input type="text" ng-model="$ctrl.path" size="70"/>
     <button type="submit">Перейти</button>
     <br>
 </form>
+<button ng-click="$ctrl.ping()">Лог</button>
 
-
-<ul draggable="false">
+<ul>
     <style>
         .downfolder {
             color: blue;
+            text-decoration: underline;
         }
     </style>
     <p></p>
     <div ng-click="$ctrl.get()"> <!-- При нажатиях в этом блоке обновляет список файлов в папке -->
-        <create-document></create-document>
+        <create-file></create-file>
     </div>
     <br/>
     <div ng-click="$ctrl.get()">
         <create-folder></create-folder>
     </div>
     <br/>
-    <li ng-repeat="file in $ctrl.folderValue"><u>
-        <div class="downfolder" id="downFolderName" ng-click="$ctrl.selectItem()">
+    <li ng-repeat="file in $ctrl.folderValue.folders">
+        <div>
+            <text ng-click="$ctrl.get()">
+                <button ng-click="$ctrl.deleteFile(file)" title="Удалить">&#10008;</button>
+            </text>
+            <button ng-click="editname = true" title="Переименовать">&#9998;</button>
+            <div ng-show="editname == true">
+                <input ng-model="$ctrl.newName" autofocus>
+                <text class="downfolder">{{file}}</text><txt style="">&nbsp;&nbsp;</txt>
+                <button ng-click="editname = false" title="Отмена">&#x21ba;</button>
+                <form ng-click="editname = false">
+                    <button ng-click="$ctrl.renameFolder(file)">Переименовать</button><p></p>
+                </form>
+            </div>
+
+            <text ng-dblclick="$ctrl.getDown(file)" ng-hide="editname == true">
+                <img src="./folder.jpg" width="15">
+
+                <txt class="downfolder">{{file}}</txt>
+            </text>
+        </div>
+    </li>
+    <li ng-repeat="file in $ctrl.folderValue.files">
+        <div>
             <text ng-click="$ctrl.get()">
                 <button ng-click="$ctrl.deleteFile(file)" title="Удалить">&#10008;</button>
             </text>
             <button ng-click="editname = true">&#9998;</button>
             <div ng-show="editname == true">
                 <input ng-model="$ctrl.newName" autofocus>
-                <text>{{file}}<txt style="">&nbsp;&nbsp;</txt></text>
+                <text>{{file}}</text><txt style="">&nbsp;&nbsp;</txt>
                 <button ng-click="editname = false" title="Отмена">&#x21ba;</button>
                 <form ng-click="editname = false">
                     <button ng-click="$ctrl.renameFile(file)">Переименовать</button><p></p>
                 </form>
             </div>
-            <text ng-dblclick="$ctrl.getDown(file)" ng-hide="editname == true">{{file}}</text>
+            <text ng-hide="editname == true">{{file}}</text>
         </div>
-    </u></li>
+    </li>
 
 </ul>
+</div>

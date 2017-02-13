@@ -6,7 +6,7 @@ angular.module('myApp', [])
             var self = this;
             this.$http = $http;
             this.get = function () {
-                self.$http.get('http://localhost:3000/file/read?dir=' + self.dir)
+                self.$http.get('http://localhost:3000/folder/read?dir=' + self.dir)
                     .then(function (res) {
                         self.files = res.data;
                         console.log(res);
@@ -14,7 +14,7 @@ angular.module('myApp', [])
                 $rootScope.path = self.dir;
             };
 
-            this.getUp = function () {
+            this.getUp = function () { // Переход в верхнюю папку
                 self.path = self.dir + '';
                 let a = self.path.lastIndexOf("\\"); //находим путь к предыдущей папке
                 let b = self.path.lastIndexOf("/");
@@ -23,7 +23,7 @@ angular.module('myApp', [])
 
                 console.log(self.pathUp);
                 self.dir = self.pathUp;
-                self.$http.get('http://localhost:3000/file/read?dir=' + self.pathUp)
+                self.$http.get('http://localhost:3000/folder/read?dir=' + self.pathUp)
                     .then(function (res) {
                         self.files = res.data;
                         console.log(res);
@@ -31,11 +31,11 @@ angular.module('myApp', [])
                 $rootScope.path = self.dir;
             };
 
-            this.getDown = function (file) {
+            this.getDown = function (file) { // Переход в указанную папку
                     var self = this;
                     this.$http = $http;
 
-                    self.$http.get('http://localhost:3000/file/read?dir=' + self.dir + '/' + file)
+                    self.$http.get('http://localhost:3000/folder/read?dir=' + self.dir + '/' + file)
                         .then(function (res) {
                             self.files = res.data;
                             console.log(res);
@@ -49,7 +49,7 @@ angular.module('myApp', [])
 
     .component('createDocumentForm', {
         bindings: {},
-        templateUrl: 'templates/createDocumentTmpl.html',
+        templateUrl: 'templates/createFileTempl.html',
         controller: function ($http, $rootScope) {
             var self = this;
             this.$http = $http;

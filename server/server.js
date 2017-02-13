@@ -6,19 +6,46 @@ var cors = require('cors');
 app.use(cors());
 
 app.get('/', function (req, res) {
-    res.send('Hello World! <form action="/file/read">' +
+    res.send('Hello World! <form action="/folder/read">' +
         '<input size="40" name="dir" type="text" value="C:\\Users\\shemh\\Documents\\angularOS\\server">' +
         '<button type="submit">Посмотреть папку</button></form>');
 });
 
-app.get('/file/read', function (req, res) { //отображение файлов из папки по абсолютному пути ?dir=
-    fs.readdir(req.query.dir, (err, list) => {
+app.get('/folder/read', function (req, res) { //отображение файлов из папки по абсолютному пути ?dir=
+    fs.readdir(req.query.dir, function (err, list) {
+        console.log('req.query.dir: ' + req.query.dir);
+        console.log('\n\nlist.длина: ' + list.length);
+        let address = req.query.dir;
+        let iCount = 0;
+        let listArray = [];
+        let listFolders = [];
+        let listFiles = [];
+        let listFinal = {};
 
-        res.json(list);
+        list.forEach(function (item, i, arr) {
+
+            listArray[i] = address + '/' + item; // создаем массив с адресами содержимого обозреваемой папки
+            try {
+                if (fs.lstatSync(listArray[i]).isDirectory()) { // Проверяем, является ли этот элемент списка папкой
+                    console.log('папка ' + listArray[i]);
+                    listFolders.push(item);
+                } else {
+                    console.log('файл ' + listArray[i]);
+                    listFiles.push(item);
+                }
+            } catch (err) {
+                console.log('При обработке возникла ошибка: ' + err);
+            }
+        });
+
+        listFinal.folders = listFolders;
+        listFinal.files = listFiles;
+        console.log(JSON.stringify(listFinal));
+        return res.json(listFinal);
     });
 });
 
-app.get('/dir/create', function (req, res) {
+app.get('/dir/create', function (req, res) { // Создание папки
    fs.mkdir(req.query.newdir, function (res2) {
        if (res2 === null) {
            res.json({message: true});
@@ -59,11 +86,11 @@ app.get('/file/rename', function (req, res) { // переименование ф
 
 app.get('/file/delete', function (req, res) { //удаление файлов, где name - абсолютный путь и название файла
     let address = req.query.name;
-    console.log('путь: ' + address);
+    console.log('путь к удаленному файлу: ' + address);
     if (fs.lstatSync(address).isFile()) {
         fs.unlink(address, function () {
             res.json({message: 'файл удален'});
-            console.log("The file was deleted!");
+            console.log("Файл удален!");
         });
     }
 
@@ -71,7 +98,7 @@ app.get('/file/delete', function (req, res) { //удаление файлов, �
         function rmdir (address) {
             let list = fs.readdirSync(address);
             for(let i = 0; i < list.length; i++) {
-                let filename = address + list[i];
+                let filename = address + '\\' + list[i];
                 let stat = fs.statSync(filename);
                 console.log('stat: ' + stat);
                 console.log('filename: ' + filename);
@@ -87,10 +114,17 @@ app.get('/file/delete', function (req, res) { //удаление файлов, �
                 }
             }
             fs.rmdirSync(address);
+            res.json({message: 'файл удален'});
             console.log('папка удалена: ' + address);
         }
         rmdir(address);
     }
+});
+
+app.get('file/read', function (req, res) {
+    fs.readFile(req.query.file, function (err, data) {
+        return res.send(data);
+    });
 });
 
 app.listen(3000, function () { //запускается командой 'node server/server'

@@ -1,121 +1,117 @@
 import * as angular from 'angular';
 
 
-
 export class Service {
     static $inject = ['$http', 'modalService'];
     $http;
-    public folderPath;
-    public setPath;
-    public getPath;
-    public createfile;
-    public renewFolderContent;
-    public path;
-    public folderValue;
-    public get;
+    modalService;
+    public path; // Путь, который отображается в адресной строке
+    public folderValue; // Содержимое папки, которое выводится на экран. Разделено на .folders и .files
+    public fileData;
 
     constructor($http, modalService) {
-        let self = this;
         this.$http = $http;
+        this.modalService = modalService;
+        this.folderValue = {};
 
         this.path = 'C:\\Users\\shemh\\Downloads';
-        self.path === 'C:' ? self.path = 'C:\\' : true;
-        self.path === 'D:' ? self.path = 'D:\\' : true;
+        this.path = this.fixPath(this.path);
 
-        this.$http.get('http://localhost:3000/file/read?dir=' + self.path)
-            .then(function (res) {
-                self.folderValue = res.data;
-            });
-
-        this.get = function (path) {
-            if (path === undefined) {
-                path = self.path;
-            }
-            self.setPath(path);
-            self.path = path;
-            path === 'C:' ? path = 'C:\\' : true;
-            path === 'D:' ? path = 'D:\\' : true;
-            console.log('path из сервиса: ' + path);
-            self.$http.get('http://localhost:3000/file/read?dir=' + path)
-                .then(function (res) {
-                    // мутация для обновления списка данных в области папки
-                    self.folderValue.length = 0;
-                    console.log('folderValue в сервисе очищен: ' + self.folderValue);
-                    let i = 0;
-                    while (res.data[i]) {
-                        self.folderValue[i] = res.data[i];
-                        i++;
-                    }
-                    console.log('folderValue в сервисе заполнен: ' + self.folderValue);
-                    // мутация закончена
-
-                });
-            console.log('Область папки обновилось: ' + path);
-        };
-
-        this.setPath = function (path) {
-            this.folderPath = path;
-        };
-
-        this.getPath = function () {
-            return this.folderPath;
-        };
-
-        this.createfile = function (name, data) {
-            this.$http = $http;
-            let filePath = this.getPath();
-            console.log('Новый файл:\n' + 'name: ', name, ', data: ', data);
-            let self = this;
-            self.name = name;
-            self.data = data;
-            self.$http.get('http://localhost:3000/file/create?' +
-                'name=' + filePath + '/' + self.name + '.txt&data=' + self.data)
-                .then(function (res) {
-                    if (res.data.message === true) {
-                        console.log('Создан новый файл с адресом ' + filePath);
-                    } else {modalService.openModal('<div class="lolka">Не удалось создать файл</div>');
-                      }
-                });
-        };
-
-        this.renewFolderContent = function () {
-           console.log('kek');
-        };
+        this.get(this.path);
     }
-}
 
-/*
-function Service() {
+    get(path) {
+        if (path === undefined || path === '') {
+            path = this.path;
+        }
+        path = this.fixPath(path);
+        this.path = path;
+        console.log('path из сервиса при get: ' + path);
+        this.$http.get('http://localhost:3000/folder/read?dir=' + path)
+            .then((res) => {
 
-    let folderPath;
-    let $http;
+                // мутация для обновления списка данных в области папки
+                this.folderValue.folders = res.data.folders;
+                this.folderValue.files = res.data.files;
 
-    this.setPath = function (path) {
-        folderPath = path;
-    };
+                // мутация закончена
 
-    this.getPath = function () {
-        return folderPath;
-    };
-
-    this.createfile = function (name, data) {
-        this.$http = $http;
-        let filePath = this.getPath();
-        console.log('Новый файл:\n' + 'name: ', name, ', data: ', data);
-        let self = this;
-        self.$http.get('http://localhost:3000/file/create?' +
-            'name=' + filePath + '/' + self.name + '.txt&data=' + self.data)
-            .then(function (res) {
-                if (res.data.message === true) {
-                    console.log('filePath: ' + filePath);
-                    self.name = '';
-                    self.data = '';
-                }// else {modalService.openModal('<div class="lolka">Не удалось создать файл</div>');
-                // }
             });
+        console.log('Область папки обновилась: ' + path);
+    }; // Функция обновления области вывода содержимого папки
+
+    fixPath(path) {
+        path === 'C:' ? path = 'C:\\' : true;
+        path === 'C' ? path = 'C:\\' : true;
+        path === 'D:' ? path = 'D:\\' : true;
+        path === 'D' ? path = 'D:\\' : true;
+        path = path.replace(/\\\\/g, '\\');
+        return path;
+    }; // Исправление пути для избежания перехода на 'С:' и т.п.
+
+    createFile(name, data) {
+        console.log('Новый файл:\nАдрес: ' + this.path + '\nname: ', name, ', data: ', data);
+        this.$http.get('http://localhost:3000/file/create?' +
+            'name=' + this.path + '/' + name + '.txt&data=' + data)
+            .then((res) => {
+                if (res.data.message === true) {
+                    console.log('Создан новый файл с адресом ' + this.path + '/' + name);
+                } else {
+                    this.modalService.openModal('<div><div>Не удалось создать файл.</div>' +
+                        '<div>Проверьте наличие прав на изменение файлов в папке.</div>' +
+                        '<div>Также запрещены в названии файла следующие символы:</div>' +
+                        '<div>\\, /, :, *, ?, ", <, >, |, +</div></div>');
+                }
+            });
+    }; // Функция создания файла
+
+    renameFile(file, path, newName) {
+        let dotPos = file.lastIndexOf('.');
+        let extension = '';
+        if (dotPos !== -1) {
+            extension = file.slice(dotPos);
+        }
+        newName = newName + extension;
+
+        console.log('новые путь и имя: ' + path + '/' + newName);
+
+        this.$http.get('http://localhost:3000/file/rename?' +
+            'oldPath=' + path + '\\' + file + '&newPath=' + path + '\\' + newName)
+            .then((res) => {
+                this.get(path);
+            });
+    }; // Функция переименования файла
+
+    deleteFile(file, path) {
+        console.log('path из сервиса перед удалением: ' + path);
+        this.$http.get('http://localhost:3000/file/delete?name=' + path + '/' + file)
+            .then((res) => {
+                this.get(path);
+                console.log('path из сервиса при удалении: ' + path);
+            });
+    }; // Функция удаления файла
+
+    getUpFolderAddress(currentAddress) {
+        currentAddress = currentAddress + '';
+        let a = currentAddress.lastIndexOf('\\'); // находим путь к предыдущей папке
+        let b = currentAddress.lastIndexOf('/');
+        let c;
+        a > b ? c = a : c = b;
+        let pathUpAddress = currentAddress.slice(0, c);
+        pathUpAddress = this.fixPath(pathUpAddress);
+        return pathUpAddress;
+    }; // Функция получения адреса верхней папки
+
+    readFile (file) {
+        this.$http.get('http://localhost:3000/file/read?file=' + file)
+            .then((res) => {
+                this.fileData = res.data;
+            });
+        return this.fileData;
     };
+
 }
-*/
+
 
 export default angular
     .module('fileManagerFactoryModule', [])

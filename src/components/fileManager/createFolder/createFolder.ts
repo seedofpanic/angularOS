@@ -28,11 +28,11 @@ class Controller {
         this.create = function () {
             let self = this;
             self.$http.get('http://localhost:3000/dir/create?' +
-                'newdir=' + fileManagerService.getPath() + '/' + self.newdir)
+                'newdir=' + fileManagerService.path + '/' + self.newdir)
                 .then(function (res) {
                     if (res.data.message === true) { // Заменить
                         modalService.openModal('<div class="lolka">Папка создана</div>');
-                    console.log(fileManagerService.getPath());
+                    console.log(fileManagerService.path);
                     self.newdir = '';
                     } else {modalService.openModal('<div class="lolka">Не удалось создать папку</div>');
                     }

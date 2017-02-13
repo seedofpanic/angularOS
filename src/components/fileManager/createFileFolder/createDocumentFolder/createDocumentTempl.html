@@ -3,7 +3,7 @@
         <button ng-click="$ctrl.clearInputBox()">Очистить поля</button>
     </div>
     <div>Название файла</div>
-    <input type="text" ng-model="$ctrl.name" size="40"/><br>
+    <input type="text" ng-model="$ctrl.name" size="40" autofocus/><br>
     <div>Содержимое</div>
     <textarea type="text" ng-model="$ctrl.data" size="40"></textarea><br>
     <button ng-click="$ctrl.create()">&#10003; Создать файл</button>

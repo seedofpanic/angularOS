@@ -1,5 +1,5 @@
 
-import createDocumentModule from './createDocument/createDocument';
+import createFileModule from './createFileFolder/createFile';
 import createFolderModule from './createFolder/createFolder';
 import fileManagerFactoryModule from './fileManagerFactory';
 import * as angular from 'angular';
@@ -14,111 +14,68 @@ function component() {
         controller: Controller,
         bindings: {
 
-        }/*,
-         scope: 'fileManagerScope'*/
+        }
     };
 
     return component;
 }
 
 class Controller {
-    static $inject = ['$http', 'fileManagerService'];
+    static $inject = ['fileManagerService'];
 
-    private path;
-    public folderValue;
-    $http;
-    public get;
-    public getUp;
-    public getDown;
-    public deleteFile;
-    private pathSlashPos;
-    public pathUp;
-    private fileManagerService;
-    public renameFile;
+    private path; // Путь, который отображается в адресной строке
+    public folderValue; // Содержимое папки, которое выводится на экран. Разделено на .folders и .files
+    public newName; // Новое имя файла, указываемое при переименовании
 
 
-    constructor($http, fileManagerService) {
-        let self = this;
-        this.$http = $http;
-
+    constructor(private fileManagerService) {
         this.path = fileManagerService.path;
         this.folderValue = fileManagerService.folderValue;
-
-
-        this.$http.get('http://localhost:3000/file/read?dir=' + self.path)
-            .then(function (res) {
-                self.folderValue = res.data;
-            });
-
-        this.get = function () {
-            console.log('folderValue из конструктора: ' + self.folderValue);
-            console.log('path из конструктора' + self.path);
-            fileManagerService.get(self.path);
-            this.folderValue = fileManagerService.folderValue;
-        };
-
-        this.getUp = function () {
-            self.path = self.path + '';
-            let a = self.path.lastIndexOf('\\'); // находим путь к предыдущей папке
-            let b = self.path.lastIndexOf('/');
-            a > b ? self.pathSlashPos = a : self.pathSlashPos = b;
-            self.pathUp = self.path.slice(0, self.pathSlashPos);
-
-            self.pathUp === 'C:' ? self.pathUp = 'C:\\' : true;
-            self.pathUp === 'D:' ? self.pathUp = 'D:\\' : true;
-            self.path = self.pathUp;
-
-            console.log('Перешли к верхней папке: ' + self.pathUp);
-            self.path = self.pathUp;
-            self.$http.get('http://localhost:3000/file/read?dir=' + self.pathUp)
-                .then(function (res) {
-                    self.folderValue = res.data;
-                    console.log(res);
-                });
-            fileManagerService.setPath(self.path);
-        };
-
-        this.getDown = function (file) {
-            let self = this;
-            this.$http = $http;
-
-            self.$http.get('http://localhost:3000/file/read?dir=' + self.path + '/' + file)
-                .then(function (res) {
-                    self.folderValue = res.data;
-                    console.log(res);
-                });
-            self.path = self.path + '\\' + file;
-            fileManagerService.setPath(self.path);
-        };
-
-        this.renameFile = function (file) {
-            let self = this;
-            this.$http = $http;
-            console.log('новые путь и имя: ' + self.path + '/' + self.newName);
-
-            self.$http.get('http://localhost:3000/file/rename?' +
-                'oldPath=' + self.path + '\\' + file + '&newPath=' + self.path + '\\' + self.newName)
-                .then(function (res) {
-                    self.get();
-                });
-            self.newName = '';
-
-        };
-
-        this.deleteFile = function (file) {
-            let self = this;
-            this.$http = $http;
-            self.$http.get('http://localhost:3000/file/delete?name=' + self.path + '/' + file)
-                .then(function (res) {
-                    self.get ();
-                });
-        };
     }
+
+    getUp() {
+        let pathUpAddress = this.fileManagerService.getUpFolderAddress(this.path);
+        this.fileManagerService.get(pathUpAddress);
+        console.log('Перешли к верхней папке: ' + pathUpAddress);
+        this.path = pathUpAddress;
+    };
+
+    get() {
+        console.log('\n\n\n\nСодержимое папки на момент начала выполнения обновления: \n' + this.folderValue);
+        this.path = this.fileManagerService.fixPath(this.path);
+        console.log('path из конструктора: ' + this.path);
+        this.fileManagerService.get(this.path);
+    };
+
+    getDown(file) {
+        let downPathAddress = this.path + '\\' + file;
+        downPathAddress = this.fileManagerService.fixPath(downPathAddress);
+        this.fileManagerService.get(downPathAddress);
+        this.path = downPathAddress;
+    };
+
+    renameFile(file) {
+        this.fileManagerService.renameFile(file, this.path, this.newName);
+        this.newName = '';
+    };
+
+    renameFolder(file) {
+        this.fileManagerService.renameFile(file, this.path, this.newName);
+        this.newName = '';
+    };
+
+    deleteFile(file) {
+        this.fileManagerService.deleteFile(file, this.path);
+    };
+
+    ping() {
+        console.log('folderValue в конструкторе: \n' + this.folderValue.folder + ',' + this.folderValue.files);
+    };
 }
 
 export default angular
     .module('fileManagerModule', [
-        createDocumentModule.name,
+        createFileModule.name,
         fileManagerFactoryModule.name,
         createFolderModule.name
     ])
